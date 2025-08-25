@@ -1,6 +1,7 @@
 # Rich Text to PptxGenJS Converter
 
-A simple web application that converts rich text (Markdown, HTML) into the format required by [PptxGenJS](https://gitbrent.github.io/PptxGenJS/) for rich text arrays.
+A simple web application that converts rich text (Markdown, HTML) into the format required
+by [PptxGenJS](https://gitbrent.github.io/PptxGenJS/) for rich text arrays.
 
 ## Features
 

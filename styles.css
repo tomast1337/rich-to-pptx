@@ -1,174 +1,178 @@
 /* Reset and base styles */
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    border-top: 3px solid #5e81ac; /* Frost */
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, sans-serif;
-  line-height: 1.6;
-  color: #d8dee9; /* Snow Storm */
-  background: #2e3440; /* Polar Night */
-  min-height: 100vh;
+    line-height: 1.6;
+    color: #d8dee9; /* Snow Storm */
+    background: #2e3440; /* Polar Night */
+    min-height: 100vh;
 }
 
 /* Layout */
 .container {
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 20px;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 /* Header */
 .header {
-  text-align: center;
-  margin-bottom: 30px;
-  color: #eceff4; /* lightest text */
-  background: #3b4252; /* dark block */
-  padding: 30px 20px;
-  border: 2px solid #4c566a;
+
+    text-align: center;
+    margin-bottom: 30px;
+    color: #eceff4; /* lightest text */
+    background: #3b4252; /* dark block */
+    padding: 30px 20px;
+    border: 2px solid #4c566a; /* Polar Night */
+    border-top: 3px solid #5e81ac; /* Frost */
 }
 
 .header h1 {
-  font-size: 2.5rem;
-  font-weight: 700;
-  margin-bottom: 10px;
-  color: #eceff4;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: #eceff4;
 }
 
 .subtitle {
-  font-size: 1.1rem;
-  opacity: 0.7;
-  font-weight: 400;
-  color: #81a1c1; /* Frost accent */
+    font-size: 1.1rem;
+    opacity: 0.7;
+    font-weight: 400;
+    color: #81a1c1; /* Frost accent */
 }
 
 /* Main content */
 .main {
-  flex: 1;
-  background: #3b4252;
-  border: 2px solid #4c566a;
-  padding: 40px;
-  margin-bottom: 20px;
-  color: #d8dee9;
+    flex: 1;
+    background: #3b4252;
+    border: 2px solid #4c566a; /* Polar Night */
+    border-top: 3px solid #5e81ac; /* Frost */
+    padding: 40px;
+    margin-bottom: 20px;
+    color: #d8dee9;
 }
 
 /* Converter grid */
 .converter-grid {
-  display: grid;
-  grid-template-rows: auto auto;
-  gap: 40px;
-  margin-bottom: 40px;
+    display: grid;
+    grid-template-rows: auto auto;
+    gap: 40px;
+    margin-bottom: 40px;
 }
 
 @media (max-width: 768px) {
-  .converter-grid {
-    gap: 30px;
-  }
+    .converter-grid {
+        gap: 30px;
+    }
 }
 
 /* Section styling */
 .input-section,
 .output-section {
-  display: flex;
-  flex-direction: column;
+    display: flex;
+    flex-direction: column;
 }
 
 .section-header {
-  margin-bottom: 16px;
+    margin-bottom: 16px;
 }
 
 .section-header h2 {
-  font-size: 1.5rem;
-  color: #eceff4; /* Snow Storm */
-  margin-bottom: 8px;
+    font-size: 1.5rem;
+    color: #eceff4; /* Snow Storm */
+    margin-bottom: 8px;
 }
 
 .help-text {
-  color: #81a1c1;
+    color: #81a1c1;
 }
 
 .help-text code {
-  background: #4c566a; /* Polar Night */
-  color: #eceff4; /* Snow Storm */
-  padding: 2px 4px;
-  border-radius: 3px;
-  font-family: "SF Mono", Monaco, Consolas, monospace;
-  font-size: 0.85em;
+    background: #4c566a; /* Polar Night */
+    color: #eceff4; /* Snow Storm */
+    padding: 2px 4px;
+    border-radius: 3px;
+    font-family: "SF Mono", Monaco, Consolas, monospace;
+    font-size: 0.85em;
 }
 
 /* CKEditor and Textarea styling */
 #editor-container {
-  border: 2px solid #4c566a; /* Polar Night */
-  overflow: hidden;
-  background: #2e3440; /* Polar Night */
-  min-height: 300px;
-  display: flex;
-  flex-direction: column;
+    border: 2px solid #4c566a; /* Polar Night */
+    overflow: hidden;
+    background: #2e3440; /* Polar Night */
+    min-height: 300px;
+    display: flex;
+    flex-direction: column;
 }
 
 #editor-container:focus-within {
-  border-color: #5e81ac; /* Frost */
+    border-color: #5e81ac; /* Frost */
 }
 
 /* CKEditor specific styling */
 .ck-editor {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
 }
 
 .ck-editor__editable {
-  flex: 1;
-  min-height: 250px;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    flex: 1;
+    min-height: 250px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, sans-serif;
-  font-size: 14px;
-  line-height: 1.6;
+    font-size: 14px;
+    line-height: 1.6;
 }
 
 .ck-toolbar {
-  border: none !important;
-  border-bottom: 2px solid #4c566a !important; /* Polar Night */
-  background: #3b4252 !important; /* Polar Night */
+    border: none !important;
+    border-bottom: 2px solid #4c566a !important; /* Polar Night */
+    background: #3b4252 !important; /* Polar Night */
 }
 
 .ck-toolbar .ck-button {
-  color: #d8dee9 !important; /* Snow Storm */
+    color: #d8dee9 !important; /* Snow Storm */
 }
 
 .ck-toolbar .ck-button:not(.ck-disabled):hover {
-  background: #4c566a !important; /* Polar Night */
-  color: #eceff4 !important; /* Snow Storm */
+    background: #4c566a !important; /* Polar Night */
+    color: #eceff4 !important; /* Snow Storm */
 }
 
 .ck-toolbar .ck-button.ck-on {
-  background: #5e81ac !important; /* Frost */
-  color: #eceff4 !important; /* Snow Storm */
+    background: #5e81ac !important; /* Frost */
+    color: #eceff4 !important; /* Snow Storm */
 }
 
 .ck-toolbar .ck-dropdown__button {
-  color: #d8dee9 !important; /* Snow Storm */
+    color: #d8dee9 !important; /* Snow Storm */
 }
 
 .ck-toolbar .ck-dropdown__button:hover {
-  background: #4c566a !important; /* Polar Night */
+    background: #4c566a !important; /* Polar Night */
 }
 
 .ck-content {
-  border: none !important;
-  padding: 16px !important;
-  background: #2e3440 !important; /* Polar Night */
-  color: #d8dee9 !important; /* Snow Storm */
+    border: none !important;
+    padding: 16px !important;
+    background: #2e3440 !important; /* Polar Night */
+    color: #d8dee9 !important; /* Snow Storm */
 }
 
 .ck-content p {
-  color: #d8dee9 !important; /* Snow Storm */
+    color: #d8dee9 !important; /* Snow Storm */
 }
 
 .ck-content h1,
@@ -177,487 +181,492 @@ body {
 .ck-content h4,
 .ck-content h5,
 .ck-content h6 {
-  color: #eceff4 !important; /* Snow Storm */
+    color: #eceff4 !important; /* Snow Storm */
 }
 
 .ck-content strong,
 .ck-content b {
-  color: #eceff4 !important; /* Snow Storm */
+    color: #eceff4 !important; /* Snow Storm */
 }
 
 .ck-content em,
 .ck-content i {
-  color: #e5e9f0 !important; /* Snow Storm */
+    color: #e5e9f0 !important; /* Snow Storm */
 }
 
 .ck-content a {
-  color: #88c0d0 !important; /* Frost */
+    color: #88c0d0 !important; /* Frost */
 }
 
 /* Nord theme dropdown panels */
 .ck-dropdown__panel {
-  background: #3b4252 !important; /* Polar Night */
-  border: 2px solid #4c566a !important; /* Polar Night */
+    background: #3b4252 !important; /* Polar Night */
+    border: 2px solid #4c566a !important; /* Polar Night */
 }
 
 .ck-list__item {
-  color: #d8dee9 !important; /* Snow Storm */
+    color: #d8dee9 !important; /* Snow Storm */
 }
 
 .ck-list__item:hover {
-  background: #4c566a !important; /* Polar Night */
+    background: #4c566a !important; /* Polar Night */
 }
 
 .ck-button_with-text {
-  color: #d8dee9 !important; /* Snow Storm */
+    color: #d8dee9 !important; /* Snow Storm */
 }
 
 /* Additional Nord theme styling */
 .ck-placeholder::before {
-  color: #4c566a !important; /* Polar Night */
+    color: #4c566a !important; /* Polar Night */
 }
 
 .ck-focused .ck-placeholder::before {
-  color: #4c566a !important; /* Polar Night */
+    color: #4c566a !important; /* Polar Night */
 }
 
 .ck-editor__editable:not(.ck-focused) .ck-placeholder::before {
-  color: #4c566a !important; /* Polar Night */
+    color: #4c566a !important; /* Polar Night */
 }
 
 /* Nord theme for color picker and other panels */
 .ck-color-ui-dropdown {
-  background: #3b4252 !important; /* Polar Night */
+    background: #3b4252 !important; /* Polar Night */
 }
 
 .ck-color-grid__tile {
-  border: 1px solid #4c566a !important; /* Polar Night */
+    border: 1px solid #4c566a !important; /* Polar Night */
 }
 
 .ck-input {
-  background: #4c566a !important; /* Polar Night */
-  border: 1px solid #5e81ac !important; /* Frost */
-  color: #d8dee9 !important; /* Snow Storm */
+    background: #4c566a !important; /* Polar Night */
+    border: 1px solid #5e81ac !important; /* Frost */
+    color: #d8dee9 !important; /* Snow Storm */
 }
 
 .ck-labeled-field-view__info {
-  color: #81a1c1 !important; /* Frost */
+    color: #81a1c1 !important; /* Frost */
 }
 
 /* Scrollbar for Nord themed editor */
 .ck-content::-webkit-scrollbar {
-  width: 8px;
+    width: 8px;
 }
 
 .ck-content::-webkit-scrollbar-track {
-  background: #3b4252; /* Polar Night */
+    background: #3b4252; /* Polar Night */
 }
 
 .ck-content::-webkit-scrollbar-thumb {
-  background: #4c566a; /* Polar Night */
+    background: #4c566a; /* Polar Night */
 }
 
 .ck-content::-webkit-scrollbar-thumb:hover {
-  background: #5e81ac; /* Frost */
+    background: #5e81ac; /* Frost */
 }
 
 /* Output container styling */
 .output-container {
-  border: 2px solid #4c566a;
-  background: #3b4252;
+    border: 2px solid #4c566a;
+    background: #3b4252;
 }
 
 .output-container:hover {
-  border-color: #5e81ac; /* Frost */
+    border-color: #5e81ac; /* Frost */
 }
 
 #output-text {
-  margin: 0;
-  background: transparent !important;
-  border: none !important;
-  border-radius: 0 !important;
-  min-height: 300px;
-  max-height: 600px;
-  overflow-y: auto;
-  overflow-x: auto;
-  padding: 16px !important;
-  font-size: 14px !important;
-  line-height: 1.5 !important;
-  white-space: pre;
-  word-wrap: break-word;
-  color: #eceff4;
+    margin: 0;
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    min-height: 300px;
+    max-height: 600px;
+    overflow-y: auto;
+    overflow-x: auto;
+    padding: 16px !important;
+    font-size: 14px !important;
+    line-height: 1.5 !important;
+    white-space: pre;
+    word-wrap: break-word;
+    color: #eceff4;
 }
 
 #output-text code {
-  background: transparent !important;
-  padding: 0 !important;
-  border: none !important;
-  font-family: "SF Mono", Monaco, Consolas, "Liberation Mono", "Courier New",
+    background: transparent !important;
+    padding: 0 !important;
+    border: none !important;
+    font-family: "SF Mono", Monaco, Consolas, "Liberation Mono", "Courier New",
     monospace !important;
-  font-size: 14px !important;
-  line-height: 1.5 !important;
-  white-space: pre;
-  word-wrap: break-word;
-  display: block;
-  min-height: 268px;
+    font-size: 14px !important;
+    line-height: 1.5 !important;
+    white-space: pre;
+    word-wrap: break-word;
+    display: block;
+    min-height: 268px;
 }
 
 /* Prism.js theme overrides for better integration */
 .token.property {
-  color: #81a1c1 !important;
+    color: #81a1c1 !important;
 }
+
 .token.string {
-  color: #a3be8c !important;
+    color: #a3be8c !important;
 }
+
 .token.number {
-  color: #b48ead !important;
+    color: #b48ead !important;
 }
+
 .token.boolean {
-  color: #bf616a !important;
+    color: #bf616a !important;
 }
+
 .token.null {
-  color: #ebcb8b !important;
+    color: #ebcb8b !important;
 }
+
 .token.punctuation {
-  color: #88c0d0 !important;
+    color: #88c0d0 !important;
 }
 
 /* Custom scrollbar for output */
 #output-text::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+    width: 8px;
+    height: 8px;
 }
 
 #output-text::-webkit-scrollbar-track {
-  background: #3b4252; /* Polar Night */
-  border-radius: 4px;
+    background: #3b4252; /* Polar Night */
+    border-radius: 4px;
 }
 
 #output-text::-webkit-scrollbar-thumb {
-  background: #4c566a; /* Polar Night */
-  border-radius: 4px;
+    background: #4c566a; /* Polar Night */
+    border-radius: 4px;
 }
 
 #output-text::-webkit-scrollbar-thumb:hover {
-  background: #5e81ac; /* Frost */
+    background: #5e81ac; /* Frost */
 }
 
 /* Loading state */
 .output-loading {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #4c566a; /* Polar Night */
-  font-style: italic;
-  min-height: 268px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #4c566a; /* Polar Night */
+    font-style: italic;
+    min-height: 268px;
 }
 
 /* Empty state styling */
 .output-empty {
-  color: #4c566a; /* Polar Night */
-  font-style: italic;
+    color: #4c566a; /* Polar Night */
+    font-style: italic;
 }
 
 /* Additional textarea styling for any remaining textareas */
 textarea {
-  padding: 16px;
-  border: 2px solid #4c566a; /* Polar Night */
-  border-radius: 8px;
-  font-family: "SF Mono", Monaco, Consolas, monospace;
-  font-size: 14px;
-  line-height: 1.5;
-  resize: vertical;
-  transition: border-color 0.2s ease;
-  background: #3b4252; /* Polar Night */
-  color: #d8dee9; /* Snow Storm */
-  min-height: 300px;
+    padding: 16px;
+    border: 2px solid #4c566a; /* Polar Night */
+    border-radius: 8px;
+    font-family: "SF Mono", Monaco, Consolas, monospace;
+    font-size: 14px;
+    line-height: 1.5;
+    resize: vertical;
+    transition: border-color 0.2s ease;
+    background: #3b4252; /* Polar Night */
+    color: #d8dee9; /* Snow Storm */
+    min-height: 300px;
 }
 
 textarea:focus {
-  outline: none;
-  border-color: #5e81ac; /* Frost */
-  box-shadow: 0 0 0 3px rgba(94, 129, 172, 0.1);
-  background: #2e3440; /* Polar Night */
+    outline: none;
+    border-color: #5e81ac; /* Frost */
+    box-shadow: 0 0 0 3px rgba(94, 129, 172, 0.1);
+    background: #2e3440; /* Polar Night */
 }
 
 textarea::placeholder {
-  color: #4c566a; /* Polar Night */
+    color: #4c566a; /* Polar Night */
 }
 
 /* Button styling */
 .button-group {
-  display: flex;
-  gap: 12px;
-  margin-top: 16px;
-  flex-wrap: wrap;
+    display: flex;
+    gap: 12px;
+    margin-top: 16px;
+    flex-wrap: wrap;
 }
 
 .btn {
-  padding: 12px 24px;
-  border: 2px solid #4c566a; /* Polar Night */
-  background: #3b4252; /* Polar Night */
-  color: #d8dee9; /* Snow Storm */
-  font-size: 14px;
-  font-weight: 500;
-  cursor: pointer;
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 120px;
+    padding: 12px 24px;
+    border: 2px solid #4c566a; /* Polar Night */
+    background: #3b4252; /* Polar Night */
+    color: #d8dee9; /* Snow Storm */
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 120px;
 }
 
 .btn-primary {
-  background: #5e81ac;
-  border-color: #5e81ac;
-  color: #eceff4;
+    background: #5e81ac;
+    border-color: #5e81ac;
+    color: #eceff4;
 }
 
 .btn-primary:hover:not(:disabled) {
-  background: #81a1c1;
-  border-color: #81a1c1;
+    background: #81a1c1;
+    border-color: #81a1c1;
 }
 
 .btn-secondary {
-  background: #434c5e;
-  color: #eceff4;
-  border-color: #4c566a;
+    background: #434c5e;
+    color: #eceff4;
+    border-color: #4c566a;
 }
 
 .btn-secondary:hover:not(:disabled) {
-  background: #4c566a;
-  border-color: #81a1c1;
+    background: #4c566a;
+    border-color: #81a1c1;
 }
 
 .btn:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-  transform: none;
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
 }
 
 .btn.copied {
-  background: #a3be8c; /* Aurora green */
-  border-color: #a3be8c;
-  transform: scale(0.95);
+    background: #a3be8c; /* Aurora green */
+    border-color: #a3be8c;
+    transform: scale(0.95);
 }
 
 /* Instructions */
 .instructions {
-  border-top: 1px solid #4c566a; /* Polar Night */
-  padding-top: 40px;
+    border-top: 1px solid #4c566a; /* Polar Night */
+    padding-top: 40px;
 }
 
 .instructions h3 {
-  font-size: 1.25rem;
-  color: #eceff4; /* Snow Storm */
-  margin-bottom: 24px;
-  text-align: center;
+    font-size: 1.25rem;
+    color: #eceff4; /* Snow Storm */
+    margin-bottom: 24px;
+    text-align: center;
 }
 
 .instructions-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 40px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
 }
 
 @media (max-width: 768px) {
-  .instructions-grid {
-    grid-template-columns: 1fr;
-    gap: 30px;
-  }
+    .instructions-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
 }
 
 .instruction-item h4 {
-  color: #d8dee9; /* Snow Storm */
-  margin-bottom: 16px;
-  font-size: 1.1rem;
+    color: #d8dee9; /* Snow Storm */
+    margin-bottom: 16px;
+    font-size: 1.1rem;
 }
 
 .instruction-item ul {
-  list-style: none;
-  padding-left: 0;
+    list-style: none;
+    padding-left: 0;
 }
 
 .instruction-item li {
-  padding: 8px 0;
-  border-bottom: 1px solid #434c5e; /* Polar Night */
+    padding: 8px 0;
+    border-bottom: 1px solid #434c5e; /* Polar Night */
 }
 
 .instruction-item li:last-child {
-  border-bottom: none;
+    border-bottom: none;
 }
 
 .instruction-item code {
-  background: #4c566a; /* Polar Night */
-  color: #88c0d0; /* Frost */
-  padding: 2px 6px;
-  border-radius: 3px;
-  font-family: "SF Mono", Monaco, Consolas, monospace;
-  font-size: 0.9em;
+    background: #4c566a; /* Polar Night */
+    color: #88c0d0; /* Frost */
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-family: "SF Mono", Monaco, Consolas, monospace;
+    font-size: 0.9em;
 }
 
 .instruction-item pre {
-  background: #3b4252; /* Polar Night */
-  padding: 16px;
-  border-radius: 6px;
-  overflow-x: auto;
-  margin-top: 12px;
+    background: #3b4252; /* Polar Night */
+    padding: 16px;
+    border-radius: 6px;
+    overflow-x: auto;
+    margin-top: 12px;
 }
 
 .instruction-item pre code {
-  background: none;
-  padding: 0;
-  color: #d8dee9; /* Snow Storm */
+    background: none;
+    padding: 0;
+    color: #d8dee9; /* Snow Storm */
 }
 
 /* Footer */
 .footer {
-  background: #3b4252; /* Polar Night */
-  border: 2px solid #4c566a; /* Polar Night */
-  border-top: 3px solid #5e81ac; /* Frost */
-  color: #d8dee9; /* Snow Storm */
-  padding: 30px 0;
+    background: #3b4252; /* Polar Night */
+    border: 2px solid #4c566a; /* Polar Night */
+    border-top: 3px solid #5e81ac; /* Frost */
+    color: #d8dee9; /* Snow Storm */
+    padding: 30px 0;
 }
 
 .footer-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 20px;
-  max-width: 1200px;
-  margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .footer-info {
-  text-align: center;
+    text-align: center;
 }
 
 .footer-title {
-  font-size: 1.1rem;
-  font-weight: 600;
-  margin-bottom: 5px;
-  color: #eceff4; /* Snow Storm */
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: #eceff4; /* Snow Storm */
 }
 
 .footer-description {
-  font-size: 0.9rem;
-  opacity: 0.8;
-  margin: 0;
+    font-size: 0.9rem;
+    opacity: 0.8;
+    margin: 0;
 }
 
 .footer-links {
-  display: flex;
-  gap: 30px;
-  align-items: center;
+    display: flex;
+    gap: 30px;
+    align-items: center;
 }
 
 .footer-link {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  color: #d8dee9; /* Snow Storm */
-  text-decoration: none;
-  font-size: 0.9rem;
-  font-weight: 500;
-  padding: 10px 20px;
-  border: 2px solid #4c566a; /* Polar Night */
-  background: #434c5e; /* Polar Night */
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #d8dee9; /* Snow Storm */
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    padding: 10px 20px;
+    border: 2px solid #4c566a; /* Polar Night */
+    background: #434c5e; /* Polar Night */
 }
 
 .footer-link:hover {
-  background: #4c566a; /* Polar Night */
-  border-color: #5e81ac; /* Frost */
-  color: #eceff4; /* Snow Storm */
+    background: #4c566a; /* Polar Night */
+    border-color: #5e81ac; /* Frost */
+    color: #eceff4; /* Snow Storm */
 }
 
 .footer-link svg {
-  flex-shrink: 0;
+    flex-shrink: 0;
 }
 
 .footer-author {
-  text-align: center;
+    text-align: center;
 }
 
 .footer-author p {
-  font-size: 0.85rem;
-  opacity: 0.7;
-  margin: 0;
+    font-size: 0.85rem;
+    opacity: 0.7;
+    margin: 0;
 }
 
 .footer-author strong {
-  color: #eceff4; /* Snow Storm */
-  opacity: 1;
+    color: #eceff4; /* Snow Storm */
+    opacity: 1;
 }
 
 /* Responsive footer */
 @media (max-width: 768px) {
-  .footer {
-    padding: 20px 0;
-  }
+    .footer {
+        padding: 20px 0;
+    }
 
-  .footer-content {
-    gap: 15px;
-    padding: 0 20px;
-  }
+    .footer-content {
+        gap: 15px;
+        padding: 0 20px;
+    }
 
-  .footer-links {
-    flex-direction: column;
-    gap: 12px;
-    width: 100%;
-  }
+    .footer-links {
+        flex-direction: column;
+        gap: 12px;
+        width: 100%;
+    }
 
-  .footer-link {
-    justify-content: center;
-    width: 100%;
-    max-width: 200px;
-  }
+    .footer-link {
+        justify-content: center;
+        width: 100%;
+        max-width: 200px;
+    }
 }
 
 /* Animations */
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .main {
-  animation: fadeIn 0.6s ease-out;
+    animation: fadeIn 0.6s ease-out;
 }
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
-  .container {
-    padding: 15px;
-  }
+    .container {
+        padding: 15px;
+    }
 
-  .main {
-    padding: 24px;
-  }
+    .main {
+        padding: 24px;
+    }
 
-  .header h1 {
-    font-size: 2rem;
-  }
+    .header h1 {
+        font-size: 2rem;
+    }
 
-  .button-group {
-    flex-direction: column;
-  }
+    .button-group {
+        flex-direction: column;
+    }
 
-  .btn {
-    min-width: auto;
-  }
+    .btn {
+        min-width: auto;
+    }
 }
 
 /* Focus improvements for accessibility */
 .btn:focus-visible {
-  outline: 2px solid #88c0d0; /* Frost */
-  outline-offset: 2px;
+    outline: 2px solid #88c0d0; /* Frost */
+    outline-offset: 2px;
 }
 
 textarea:focus-visible {
-  outline: none;
+    outline: none;
 }
