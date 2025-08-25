@@ -205,7 +205,7 @@ function parseLine(line) {
                 options.italic = true;
                 break;
             case 'underline':
-                options.underline = { style: 'single' };
+                options.underline = { style: 'heavy' };
                 break;
             case 'strike':
                 options.strike = true;

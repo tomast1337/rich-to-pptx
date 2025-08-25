@@ -1,17 +1,6 @@
+import type * as PptxGenJS  from 'pptxgenjs';
 // Types for PptxGenJS TextProps
-export interface PptxGenJSTextProps {
-  text: string;
-  options?: {
-    bold?: boolean;
-    italic?: boolean;
-    underline?: boolean | { style?: 'single' | 'double' | 'heavy' | 'dotted' | 'dashed' | 'wavy' };
-    strike?: boolean;
-    color?: string;
-    fontSize?: number;
-    fontFace?: string;
-    breakLine?: boolean;
-  };
-}
+export type PptxGenJSTextProps =  PptxGenJS.default.TextProps
 
 // Token interface for parsing
 interface Token {
@@ -252,7 +241,7 @@ function parseLine(line: string): PptxGenJSTextProps[] {
         options.italic = true;
         break;
       case 'underline':
-        options.underline = { style: 'single' };
+        options.underline = { style: 'heavy' };
         break;
       case 'strike':
         options.strike = true;

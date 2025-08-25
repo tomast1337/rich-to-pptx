@@ -1,18 +1,5 @@
-export interface PptxGenJSTextProps {
-    text: string;
-    options?: {
-        bold?: boolean;
-        italic?: boolean;
-        underline?: boolean | {
-            style?: 'single' | 'double' | 'heavy' | 'dotted' | 'dashed' | 'wavy';
-        };
-        strike?: boolean;
-        color?: string;
-        fontSize?: number;
-        fontFace?: string;
-        breakLine?: boolean;
-    };
-}
+import type * as PptxGenJS from 'pptxgenjs';
+export type PptxGenJSTextProps = PptxGenJS.default.TextProps;
 /**
  * Convert HTML from Word documents to markdown-like format
  */
