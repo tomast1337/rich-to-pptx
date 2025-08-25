@@ -6,6 +6,7 @@ A simple web application that converts rich text (Markdown, HTML) into the forma
 
 - ✅ **Markdown Support**: `**bold**`, `*italic*`, `~~strikethrough~~`
 - ✅ **HTML Support**: `<u>underline</u>` tags
+- ✅ **Word Document Paste**: Automatically converts HTML formatting when pasting from Word
 - ✅ **Line Breaks**: Automatic handling of newlines and empty lines
 - ✅ **Real-time Conversion**: Auto-converts as you type
 - ✅ **Copy to Clipboard**: One-click copying of output
@@ -22,6 +23,23 @@ A simple web application that converts rich text (Markdown, HTML) into the forma
 | Underline | `<u>text</u>` | `{ text: "text", options: { underline: { style: 'single' } } }` |
 | Strikethrough | `~~text~~` | `{ text: "text", options: { strike: true } }` |
 | Line Break | Empty line | `{ text: "", options: { breakLine: true } }` |
+
+### Word Document Support
+
+When pasting from Word documents, the following HTML tags and styles are automatically converted:
+
+| HTML Format | Converted To | Notes |
+|-------------|--------------|-------|
+| `<strong>`, `<b>` | `**text**` | Bold formatting |
+| `<em>`, `<i>` | `*text*` | Italic formatting |
+| `<u>` | `<u>text</u>` | Underline formatting |
+| `<s>`, `<strike>`, `<del>` | `~~text~~` | Strikethrough formatting |
+| `<span style="font-weight: bold">` | `**text**` | Inline bold styles |
+| `<span style="font-style: italic">` | `*text*` | Inline italic styles |
+| `<span style="text-decoration: underline">` | `<u>text</u>` | Inline underline styles |
+| `<span style="text-decoration: line-through">` | `~~text~~` | Inline strikethrough styles |
+| `<p>`, `<div>` | Line breaks | Paragraph formatting |
+| `<h1>` to `<h6>` | `**text**` | Headers converted to bold |
 
 ## Quick Start
 
@@ -55,10 +73,11 @@ If you just want to use the converter without building:
 
 ### Web Interface
 
-1. **Input**: Enter your rich text in the left textarea
-2. **Output**: The converted PptxGenJS format appears on the right
-3. **Copy**: Click "Copy to Clipboard" to copy the output
-4. **Sample**: Click "Load Sample" to see example usage
+1. **Input**: Enter your rich text in the left textarea or paste from Word documents
+2. **Paste from Word**: Copy formatted text from Word and paste directly - formatting will be preserved!
+3. **Output**: The converted PptxGenJS format appears on the right
+4. **Copy**: Click "Copy to Clipboard" to copy the output
+5. **Sample**: Click "Load Sample" to see example usage
 
 ### Using with PptxGenJS
 

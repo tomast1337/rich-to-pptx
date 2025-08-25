@@ -22,6 +22,99 @@ interface Token {
 }
 
 /**
+ * Convert HTML from Word documents to markdown-like format
+ */
+export function convertHtmlToMarkdown(html: string): string {
+  // Create a temporary div to parse HTML
+  const tempDiv = document.createElement('div');
+  tempDiv.innerHTML = html;
+  
+  // Convert HTML to markdown
+  const result = processNode(tempDiv);
+  
+  // Clean up extra whitespace and normalize line breaks
+  return result
+    .replace(/\n\s*\n\s*\n/g, '\n\n') // Remove excessive line breaks
+    .replace(/^\s+|\s+$/g, '') // Trim whitespace
+    .replace(/\s+/g, ' '); // Normalize whitespace
+}
+
+/**
+ * Recursively process HTML nodes and convert to markdown
+ */
+function processNode(node: Node): string {
+  let result = '';
+  
+  for (const child of Array.from(node.childNodes)) {
+    if (child.nodeType === Node.TEXT_NODE) {
+      // Text node - add as is
+      const text = child.textContent || '';
+      result += text;
+    } else if (child.nodeType === Node.ELEMENT_NODE) {
+      const element = child as Element;
+      const childContent = processNode(child);
+      
+      if (!childContent.trim()) continue; // Skip empty elements
+      
+      switch (element.tagName.toLowerCase()) {
+        case 'strong':
+        case 'b':
+          result += `**${childContent}**`;
+          break;
+        case 'em':
+        case 'i':
+          result += `*${childContent}*`;
+          break;
+        case 'u':
+          result += `<u>${childContent}</u>`;
+          break;
+        case 's':
+        case 'strike':
+        case 'del':
+          result += `~~${childContent}~~`;
+          break;
+        case 'span':
+          // Handle styled spans (common in Word)
+          const style = element.getAttribute('style') || '';
+          if (style.includes('font-weight: bold') || style.includes('font-weight:bold')) {
+            result += `**${childContent}**`;
+          } else if (style.includes('font-style: italic') || style.includes('font-style:italic')) {
+            result += `*${childContent}*`;
+          } else if (style.includes('text-decoration: underline') || style.includes('text-decoration:underline')) {
+            result += `<u>${childContent}</u>`;
+          } else if (style.includes('text-decoration: line-through') || style.includes('text-decoration:line-through')) {
+            result += `~~${childContent}~~`;
+          } else {
+            result += childContent;
+          }
+          break;
+        case 'p':
+        case 'div':
+          result += childContent + '\n\n';
+          break;
+        case 'br':
+          result += '\n';
+          break;
+        case 'h1':
+        case 'h2':
+        case 'h3':
+        case 'h4':
+        case 'h5':
+        case 'h6':
+          result += `**${childContent}**\n\n`;
+          break;
+        default:
+          // For unknown elements, just include the content
+          result += childContent;
+          break;
+      }
+    }
+  }
+  
+  return result;
+}
+
+/**
  * Convert rich text (Markdown, HTML, etc.) to PptxGenJS-compatible format
  * @param input - Rich text string (supports Markdown and basic HTML)
  * @returns Array of PptxGenJS TextProps

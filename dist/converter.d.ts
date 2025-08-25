@@ -14,6 +14,10 @@ export interface PptxGenJSTextProps {
     };
 }
 /**
+ * Convert HTML from Word documents to markdown-like format
+ */
+export declare function convertHtmlToMarkdown(html: string): string;
+/**
  * Convert rich text (Markdown, HTML, etc.) to PptxGenJS-compatible format
  * @param input - Rich text string (supports Markdown and basic HTML)
  * @returns Array of PptxGenJS TextProps

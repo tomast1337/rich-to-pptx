@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rich Text to PptxGenJS Converter</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.ckeditor.com/ckeditor5/40.0.0/classic/ckeditor.js"></script>
 </head>
 
 <body>
@@ -20,15 +21,18 @@
                 <!-- Input Section -->
                 <div class="input-section">
                     <div class="section-header">
-                        <h2>Input (Rich Text)</h2>
+                        <h2>Input (Rich Text Editor)</h2>
                         <div class="help-text">
-                            Supports: <strong>**bold**</strong>, <em>*italic*</em>, <u>&lt;u&gt;underline&lt;/u&gt;</u>,
-                            <del>~~strikethrough~~</del>
+                            ✨ <strong>Visual Rich Text Editor</strong> - Format text with toolbar buttons or paste from Word/Google Docs!<br/>
+                            📝 Use bold, italic, underline, strikethrough and more with the toolbar above
                         </div>
                     </div>
-                    <textarea id="input-text"
-                        placeholder="Enter your rich text here...&#10;&#10;Examples:&#10;**Bold text**&#10;*Italic text*&#10;<u>Underlined text</u>&#10;~~Strikethrough text~~"
-                        rows="15"></textarea>
+                    <div id="editor-container">
+                        <div id="input-text">
+                            <p>Type your rich text here or paste from Word documents...</p>
+                            <p><strong>Bold text</strong>, <em>italic text</em>, <u>underlined text</u>, and <s>strikethrough text</s>.</p>
+                        </div>
+                    </div>
                     <div class="button-group">
                         <button id="sample-btn" class="btn btn-secondary">Load Sample</button>
                         <button id="clear-btn" class="btn btn-secondary">Clear (Ctrl+K)</button>
@@ -64,6 +68,7 @@
                             <li><strong>Underline:</strong> <code>&lt;u&gt;text&lt;/u&gt;</code></li>
                             <li><strong>Strikethrough:</strong> <code>~~text~~</code></li>
                             <li><strong>Line breaks:</strong> Empty lines or newlines</li>
+                            <li><strong>🆕 Paste from Word:</strong> Automatically converts HTML formatting</li>
                         </ul>
                     </div>
                     <div class="instruction-item">
