@@ -2856,206 +2856,6 @@ var require_eventemitter3 = __commonJS((exports, module) => {
   }
 });
 
-// src/converter.ts
-function formatPptxTextPropsForDisplay(props) {
-  return JSON.stringify(props, null, 2);
-}
-function getSampleRichText() {
-  return `<p>This is a sample text that demonstrates rich text formatting.</p>
-
-<p>You can use <strong>bold text</strong>, <em>italic text</em>, <u>underlined text</u>, and <s>strikethrough text</s>.</p>
-
-<p>Bullet lists work great with CKEditor:</p>
-<ul>
-    <li>First bullet point</li>
-    <li>Second bullet point with <strong>formatting</strong>
-        <ul>
-            <li>Nested bullet (indented)</li>
-            <li>Another nested item with <em>italic text</em>
-                <ul>
-                    <li>Deeply nested bullet</li>
-                </ul>
-            </li>
-        </ul>
-    </li>
-    <li>Back to main level</li>
-</ul>
-
-<p>Numbered lists:</p>
-<ol>
-    <li>First numbered item</li>
-    <li>Second numbered item with <strong>formatting</strong>
-        <ol>
-            <li>Nested numbered item</li>
-            <li>Another nested item with <u>underline</u></li>
-        </ol>
-    </li>
-    <li>Back to main numbering</li>
-</ol>
-
-<p>Regular paragraphs work with proper spacing and formatting.</p>`;
-}
-function convertHtmlToPptxRichText(html) {
-  if (!html)
-    return [];
-  const tempDiv = document.createElement("div");
-  tempDiv.innerHTML = html;
-  const result = [];
-  processHtmlNode(tempDiv, result, 0);
-  return result;
-}
-function processHtmlNode(node, result, indentLevel = 0, inheritedOptions = {}) {
-  for (const child of Array.from(node.childNodes)) {
-    if (child.nodeType === Node.TEXT_NODE) {
-      const text = child.textContent || "";
-      if (text.trim()) {
-        const options = { ...inheritedOptions };
-        if (indentLevel > 0 && !options.bullet) {
-          options.indentLevel = indentLevel;
-        }
-        result.push({
-          text,
-          options: Object.keys(options).length > 0 ? options : undefined
-        });
-      }
-    } else if (child.nodeType === Node.ELEMENT_NODE) {
-      const element = child;
-      const tagName = element.tagName.toLowerCase();
-      const newOptions = { ...inheritedOptions };
-      let addLineBreak = false;
-      let isList = false;
-      switch (tagName) {
-        case "strong":
-        case "b":
-          newOptions.bold = true;
-          break;
-        case "em":
-        case "i":
-          newOptions.italic = true;
-          break;
-        case "u":
-          newOptions.underline = { style: "heavy" };
-          break;
-        case "s":
-        case "strike":
-        case "del":
-          newOptions.strike = true;
-          break;
-        case "span":
-          const style = element.getAttribute("style") || "";
-          if (style.includes("font-weight: bold") || style.includes("font-weight:bold")) {
-            newOptions.bold = true;
-          }
-          if (style.includes("font-style: italic") || style.includes("font-style:italic")) {
-            newOptions.italic = true;
-          }
-          if (style.includes("text-decoration: underline") || style.includes("text-decoration:underline")) {
-            newOptions.underline = { style: "heavy" };
-          }
-          if (style.includes("text-decoration: line-through") || style.includes("text-decoration:line-through")) {
-            newOptions.strike = true;
-          }
-          break;
-        case "p":
-          processHtmlNode(child, result, indentLevel, newOptions);
-          if (result.length > 0) {
-            const lastItem = result[result.length - 1];
-            if (lastItem && !lastItem.options?.bullet) {
-              lastItem.text += `
-`;
-            } else {
-              result.push({ text: `
-` });
-            }
-          }
-          continue;
-        case "br":
-          if (result.length > 0) {
-            const lastItem = result[result.length - 1];
-            if (lastItem && !lastItem.options?.bullet) {
-              lastItem.text += `
-`;
-            } else {
-              result.push({ text: `
-` });
-            }
-          } else {
-            result.push({ text: `
-` });
-          }
-          continue;
-        case "ul":
-          processListElement(element, result, indentLevel, false);
-          continue;
-        case "ol":
-          processListElement(element, result, indentLevel, true);
-          continue;
-        case "li":
-          newOptions.indentLevel = indentLevel;
-          break;
-        case "h1":
-        case "h2":
-        case "h3":
-        case "h4":
-        case "h5":
-        case "h6":
-          newOptions.bold = true;
-          newOptions.paraSpaceAfter = 12;
-          break;
-      }
-      if (!isList) {
-        processHtmlNode(child, result, indentLevel, newOptions);
-      }
-    }
-  }
-}
-function processListElement(listElement, result, indentLevel, isNumbered) {
-  let itemNumber = 1;
-  for (const child of Array.from(listElement.children)) {
-    if (child.tagName.toLowerCase() === "li") {
-      const bulletOptions = {
-        bullet: {
-          type: isNumbered ? "number" : "bullet"
-        },
-        indentLevel,
-        paraSpaceAfter: 6
-      };
-      if (isNumbered && itemNumber > 1) {}
-      const itemResult = [];
-      processHtmlNode(child, itemResult, indentLevel + 1, {});
-      if (itemResult.length > 0) {
-        if (!itemResult[0].options) {
-          itemResult[0].options = {};
-        }
-        Object.assign(itemResult[0].options, bulletOptions);
-        result.push(...itemResult);
-        const isLastItem = child === listElement.children[listElement.children.length - 1];
-        if (!isLastItem) {
-          const lastItem = result[result.length - 1];
-          if (lastItem && !lastItem.options?.bullet) {
-            lastItem.text += `
-`;
-          } else {
-            result.push({ text: `
-` });
-          }
-        }
-      }
-      itemNumber++;
-    }
-  }
-  if (result.length > 0) {
-    const lastItem = result[result.length - 1];
-    if (lastItem && !lastItem.options?.bullet) {
-      lastItem.text += `
-`;
-    } else {
-      result.push({ text: `
-` });
-    }
-  }
-}
-
 // node_modules/lodash-es/_freeGlobal.js
 var freeGlobal = typeof global == "object" && global && global.Object === Object && global;
 var _freeGlobal_default = freeGlobal;
@@ -11878,6 +11678,206 @@ core_default.register({
   "ui/tooltip": tooltip_default
 }, true);
 var quill_default = core_default;
+
+// src/converter.ts
+function formatPptxTextPropsForDisplay(props) {
+  return JSON.stringify(props, null, 2);
+}
+function getSampleRichText() {
+  return `<p>This is a sample text that demonstrates rich text formatting.</p>
+
+<p>You can use <strong>bold text</strong>, <em>italic text</em>, <u>underlined text</u>, and <s>strikethrough text</s>.</p>
+
+<p>Bullet lists work great with CKEditor:</p>
+<ul>
+    <li>First bullet point</li>
+    <li>Second bullet point with <strong>formatting</strong>
+        <ul>
+            <li>Nested bullet (indented)</li>
+            <li>Another nested item with <em>italic text</em>
+                <ul>
+                    <li>Deeply nested bullet</li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+    <li>Back to main level</li>
+</ul>
+
+<p>Numbered lists:</p>
+<ol>
+    <li>First numbered item</li>
+    <li>Second numbered item with <strong>formatting</strong>
+        <ol>
+            <li>Nested numbered item</li>
+            <li>Another nested item with <u>underline</u></li>
+        </ol>
+    </li>
+    <li>Back to main numbering</li>
+</ol>
+
+<p>Regular paragraphs work with proper spacing and formatting.</p>`;
+}
+function convertHtmlToPptxRichText(html) {
+  if (!html)
+    return [];
+  const tempDiv = document.createElement("div");
+  tempDiv.innerHTML = html;
+  const result = [];
+  processHtmlNode(tempDiv, result, 0);
+  return result;
+}
+function processHtmlNode(node, result, indentLevel = 0, inheritedOptions = {}) {
+  for (const child of Array.from(node.childNodes)) {
+    if (child.nodeType === Node.TEXT_NODE) {
+      const text = child.textContent || "";
+      if (text.trim()) {
+        const options = { ...inheritedOptions };
+        if (indentLevel > 0 && !options.bullet) {
+          options.indentLevel = indentLevel;
+        }
+        result.push({
+          text,
+          options: Object.keys(options).length > 0 ? options : undefined
+        });
+      }
+    } else if (child.nodeType === Node.ELEMENT_NODE) {
+      const element = child;
+      const tagName = element.tagName.toLowerCase();
+      const newOptions = { ...inheritedOptions };
+      let addLineBreak = false;
+      let isList = false;
+      switch (tagName) {
+        case "strong":
+        case "b":
+          newOptions.bold = true;
+          break;
+        case "em":
+        case "i":
+          newOptions.italic = true;
+          break;
+        case "u":
+          newOptions.underline = { style: "heavy" };
+          break;
+        case "s":
+        case "strike":
+        case "del":
+          newOptions.strike = true;
+          break;
+        case "span":
+          const style = element.getAttribute("style") || "";
+          if (style.includes("font-weight: bold") || style.includes("font-weight:bold")) {
+            newOptions.bold = true;
+          }
+          if (style.includes("font-style: italic") || style.includes("font-style:italic")) {
+            newOptions.italic = true;
+          }
+          if (style.includes("text-decoration: underline") || style.includes("text-decoration:underline")) {
+            newOptions.underline = { style: "heavy" };
+          }
+          if (style.includes("text-decoration: line-through") || style.includes("text-decoration:line-through")) {
+            newOptions.strike = true;
+          }
+          break;
+        case "p":
+          processHtmlNode(child, result, indentLevel, newOptions);
+          if (result.length > 0) {
+            const lastItem = result[result.length - 1];
+            if (lastItem && !lastItem.options?.bullet) {
+              lastItem.text += `
+`;
+            } else {
+              result.push({ text: `
+` });
+            }
+          }
+          continue;
+        case "br":
+          if (result.length > 0) {
+            const lastItem = result[result.length - 1];
+            if (lastItem && !lastItem.options?.bullet) {
+              lastItem.text += `
+`;
+            } else {
+              result.push({ text: `
+` });
+            }
+          } else {
+            result.push({ text: `
+` });
+          }
+          continue;
+        case "ul":
+          processListElement(element, result, indentLevel, false);
+          continue;
+        case "ol":
+          processListElement(element, result, indentLevel, true);
+          continue;
+        case "li":
+          newOptions.indentLevel = indentLevel;
+          break;
+        case "h1":
+        case "h2":
+        case "h3":
+        case "h4":
+        case "h5":
+        case "h6":
+          newOptions.bold = true;
+          newOptions.paraSpaceAfter = 12;
+          break;
+      }
+      if (!isList) {
+        processHtmlNode(child, result, indentLevel, newOptions);
+      }
+    }
+  }
+}
+function processListElement(listElement, result, indentLevel, isNumbered) {
+  let itemNumber = 1;
+  for (const child of Array.from(listElement.children)) {
+    if (child.tagName.toLowerCase() === "li") {
+      const bulletOptions = {
+        bullet: {
+          type: isNumbered ? "number" : "bullet"
+        },
+        indentLevel,
+        paraSpaceAfter: 6
+      };
+      if (isNumbered && itemNumber > 1) {}
+      const itemResult = [];
+      processHtmlNode(child, itemResult, indentLevel + 1, {});
+      if (itemResult.length > 0) {
+        if (!itemResult[0].options) {
+          itemResult[0].options = {};
+        }
+        Object.assign(itemResult[0].options, bulletOptions);
+        result.push(...itemResult);
+        const isLastItem = child === listElement.children[listElement.children.length - 1];
+        if (!isLastItem) {
+          const lastItem = result[result.length - 1];
+          if (lastItem && !lastItem.options?.bullet) {
+            lastItem.text += `
+`;
+          } else {
+            result.push({ text: `
+` });
+          }
+        }
+      }
+      itemNumber++;
+    }
+  }
+  if (result.length > 0) {
+    const lastItem = result[result.length - 1];
+    if (lastItem && !lastItem.options?.bullet) {
+      lastItem.text += `
+`;
+    } else {
+      result.push({ text: `
+` });
+    }
+  }
+}
 
 // src/app.ts
 class RichTextConverterApp {

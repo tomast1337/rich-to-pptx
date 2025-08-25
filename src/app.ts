@@ -1,67 +1,16 @@
-import {
-    formatPptxTextPropsForDisplay,
-    getSampleRichText,
-    convertHtmlToPptxRichText,
-    PptxGenJSTextProps
-} from './converter.js';
 import type * as PrismJS from 'prismjs';
-
-// CKEditor 5 Types
-interface CKEditor5Config {
-    toolbar?: {
-        items?: string[];
-    };
-    heading?: {
-        options?: Array<{
-            model: string;
-            view?: string;
-            title: string;
-            class: string;
-        }>;
-    };
-    fontSize?: {
-        options?: number[];
-    };
-    fontFamily?: {
-        options?: string[];
-    };
-    fontColor?: {
-        colors?: Array<{
-            color: string;
-            label: string;
-            hasBorder?: boolean;
-        }>;
-    };
-    alignment?: {
-        options?: string[];
-    };
-}
-
-interface CKEditor5Instance {
-    getData(): string;
-    setData(data: string): void;
-    model: {
-        document: {
-            on(event: string, callback: () => void): void;
-        };
-    };
-    editing: {
-        view: {
-            focus(): void;
-        };
-    };
-}
-
-interface CKEditor5Constructor {
-    create(element: Element | null, config?: CKEditor5Config): Promise<CKEditor5Instance>;
-}
+import Quill from 'quill';
+import {
+    convertHtmlToPptxRichText,
+    formatPptxTextPropsForDisplay,
+    getSampleRichText
+} from './converter.js';
 
 // Declare global variables for TypeScript  
-declare const ClassicEditor: CKEditor5Constructor;
 declare const Prism: typeof PrismJS;
 
 class RichTextConverterApp {
-    private editor: CKEditor5Instance | null = null;
+    private editor: Quill | null = null;
     private outputElement!: HTMLElement;
     private outputCodeElement!: HTMLElement;
     private convertButton!: HTMLButtonElement;
@@ -88,134 +37,29 @@ class RichTextConverterApp {
         }
     }
 
-    private async initializeEditor(): Promise<void> {
+    private initializeEditor(): void {
         try {
-            this.editor = await ClassicEditor.create(document.querySelector('#input-text'), {
-                toolbar: {
-                    items: [
-                        'heading',
-                        '|',
-                        'fontSize',
-                        'fontFamily',
-                        'fontColor',
-                        'fontBackgroundColor',
-                        '|',
-                        'bold',
-                        'italic',
-                        'underline',
-                        'strikethrough',
-                        'subscript',
-                        'superscript',
-                        '|',
-                        'alignment',
-                        '|',
-                        'bulletedList',
-                        'numberedList',
-                        '|',
-                        'link',
-                        '|',
-                        'undo',
-                        'redo'
+            this.editor = new Quill('#input-text', {
+                theme: 'snow',
+                modules: {
+                    toolbar: [
+                        [{ 'header': [1, 2, 3, false] }],
+                        ['bold', 'italic', 'underline', 'strike'],
+                        [{ 'color': [] }, { 'background': [] }],
+                        [{ 'font': [] }, { 'size': ['small', false, 'large', 'huge'] }],
+                        [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                        [{ 'align': [] }],
+                        ['link', 'image'],
+                        ['clean']
                     ]
                 },
-                heading: {
-                    options: [
-                        {model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph'},
-                        {model: 'heading1', view: 'h1', title: 'Heading 1', class: 'ck-heading_heading1'},
-                        {model: 'heading2', view: 'h2', title: 'Heading 2', class: 'ck-heading_heading2'},
-                        {model: 'heading3', view: 'h3', title: 'Heading 3', class: 'ck-heading_heading3'}
-                    ]
-                },
-                fontSize: {
-                    options: [9, 10, 11, 12, 13, 14, 16, 18, 20, 22, 24, 26, 28, 36, 48, 72]
-                },
-                fontFamily: {
-                    options: [
-                        'default',
-                        'Arial, Helvetica, sans-serif',
-                        'Courier New, Courier, monospace',
-                        'Georgia, serif',
-                        'Lucida Sans Unicode, Lucida Grande, sans-serif',
-                        'Tahoma, Geneva, sans-serif',
-                        'Times New Roman, Times, serif',
-                        'Trebuchet MS, Helvetica, sans-serif',
-                        'Verdana, Geneva, sans-serif'
-                    ]
-                },
-                fontColor: {
-                    colors: [
-                        {
-                            color: 'hsl(0, 0%, 0%)',
-                            label: 'Black'
-                        },
-                        {
-                            color: 'hsl(0, 0%, 30%)',
-                            label: 'Dim grey'
-                        },
-                        {
-                            color: 'hsl(0, 0%, 60%)',
-                            label: 'Grey'
-                        },
-                        {
-                            color: 'hsl(0, 0%, 90%)',
-                            label: 'Light grey'
-                        },
-                        {
-                            color: 'hsl(0, 0%, 100%)',
-                            label: 'White',
-                            hasBorder: true
-                        },
-                        {
-                            color: 'hsl(0, 75%, 60%)',
-                            label: 'Red'
-                        },
-                        {
-                            color: 'hsl(30, 75%, 60%)',
-                            label: 'Orange'
-                        },
-                        {
-                            color: 'hsl(60, 75%, 60%)',
-                            label: 'Yellow'
-                        },
-                        {
-                            color: 'hsl(90, 75%, 60%)',
-                            label: 'Light green'
-                        },
-                        {
-                            color: 'hsl(120, 75%, 60%)',
-                            label: 'Green'
-                        },
-                        {
-                            color: 'hsl(150, 75%, 60%)',
-                            label: 'Aquamarine'
-                        },
-                        {
-                            color: 'hsl(180, 75%, 60%)',
-                            label: 'Turquoise'
-                        },
-                        {
-                            color: 'hsl(210, 75%, 60%)',
-                            label: 'Light blue'
-                        },
-                        {
-                            color: 'hsl(240, 75%, 60%)',
-                            label: 'Blue'
-                        },
-                        {
-                            color: 'hsl(270, 75%, 60%)',
-                            label: 'Purple'
-                        }
-                    ]
-                },
-                alignment: {
-                    options: ['left', 'center', 'right', 'justify']
-                }
+                placeholder: 'Type your rich text here or paste from Word documents...'
             });
 
             this.setupEventListeners();
             this.loadSampleText();
         } catch (error) {
-            console.error('Failed to initialize CKEditor:', error);
+            console.error('Failed to initialize QuillJS:', error);
         }
     }
 
@@ -227,7 +71,7 @@ class RichTextConverterApp {
 
         // Auto-convert on content change
         if (this.editor) {
-            this.editor.model.document.on('change:data', () => {
+            this.editor.on('text-change', () => {
                 this.handleConvert();
             });
         }
@@ -289,17 +133,21 @@ class RichTextConverterApp {
 
     private handleConvert(): void {
         try {
-            if (!this.editor) return;
+            if (!this.editor) {
+                console.error('Editor not found');
+                return;
+            }
 
-            // Get HTML content from CKEditor
-            const htmlContent = this.editor.getData();
+            // Get HTML content from QuillJS 2.0
+            const htmlContent = this.editor.root.innerHTML;
+            console.log(htmlContent);
 
-            if (!htmlContent.trim()) {
+            if (!htmlContent.trim() || htmlContent === '<p><br></p>') {
                 this.setOutputContent('[]');
                 return;
             }
 
-            // Convert HTML directly to PptxGenJS format (optimized for CKEditor)
+            // Convert HTML directly to PptxGenJS format (optimized for QuillJS)
             const result = convertHtmlToPptxRichText(htmlContent);
 
             const formattedOutput = formatPptxTextPropsForDisplay(result);
@@ -340,24 +188,24 @@ class RichTextConverterApp {
 
     private handleClear(): void {
         if (this.editor) {
-            this.editor.setData('');
+            this.editor.root.innerHTML = '';
         }
         this.setOutputContent('');
         this.copyButton.disabled = true;
         if (this.editor) {
-            this.editor.editing.view.focus();
+            this.editor.focus();
         }
     }
 
     private handleLoadSample(): void {
         if (!this.editor) return;
 
-        // Load sample HTML directly into CKEditor
+        // Load sample HTML directly into QuillJS 2.0
         const sampleHtml = getSampleRichText();
-        this.editor.setData(sampleHtml);
+        this.editor.root.innerHTML = sampleHtml;
         this.handleConvert();
-        this.editor.editing.view.focus();
-        }
+        this.editor.focus();
+    }
 
     private async handleCopy(): Promise<void> {
         try {
