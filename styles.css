@@ -9,8 +9,8 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, sans-serif;
   line-height: 1.6;
-  color: #333;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #d8dee9; /* Snow Storm */
+  background: #2e3440; /* Polar Night */
   min-height: 100vh;
 }
 
@@ -27,45 +27,49 @@ body {
 /* Header */
 .header {
   text-align: center;
-  margin-bottom: 40px;
-  color: white;
+  margin-bottom: 30px;
+  color: #eceff4; /* lightest text */
+  background: #3b4252; /* dark block */
+  padding: 30px 20px;
+  border: 2px solid #4c566a;
 }
 
 .header h1 {
   font-size: 2.5rem;
   font-weight: 700;
   margin-bottom: 10px;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  color: #eceff4;
 }
 
 .subtitle {
   font-size: 1.1rem;
-  opacity: 0.9;
+  opacity: 0.7;
   font-weight: 400;
+  color: #81a1c1; /* Frost accent */
 }
 
 /* Main content */
 .main {
   flex: 1;
-  background: white;
-  border-radius: 16px;
+  background: #3b4252;
+  border: 2px solid #4c566a;
   padding: 40px;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;
+  color: #d8dee9;
 }
 
 /* Converter grid */
 .converter-grid {
-    display: grid;
-    grid-template-rows: auto auto;
-    gap: 40px;
-    margin-bottom: 40px;
+  display: grid;
+  grid-template-rows: auto auto;
+  gap: 40px;
+  margin-bottom: 40px;
 }
 
 @media (max-width: 768px) {
-    .converter-grid {
-        gap: 30px;
-    }
+  .converter-grid {
+    gap: 30px;
+  }
 }
 
 /* Section styling */
@@ -81,18 +85,17 @@ body {
 
 .section-header h2 {
   font-size: 1.5rem;
-  color: #2c3e50;
+  color: #eceff4; /* Snow Storm */
   margin-bottom: 8px;
 }
 
 .help-text {
-  color: #6c757d;
-  font-size: 0.9rem;
-  line-height: 1.4;
+  color: #81a1c1;
 }
 
 .help-text code {
-  background: #f8f9fa;
+  background: #4c566a; /* Polar Night */
+  color: #eceff4; /* Snow Storm */
   padding: 2px 4px;
   border-radius: 3px;
   font-family: "SF Mono", Monaco, Consolas, monospace;
@@ -101,77 +104,284 @@ body {
 
 /* CKEditor and Textarea styling */
 #editor-container {
-    border: 2px solid #e9ecef;
-    border-radius: 8px;
-    overflow: hidden;
-    transition: border-color 0.2s ease;
-    background: white;
-    min-height: 300px;
-    display: flex;
-    flex-direction: column;
+  border: 2px solid #4c566a; /* Polar Night */
+  overflow: hidden;
+  background: #2e3440; /* Polar Night */
+  min-height: 300px;
+  display: flex;
+  flex-direction: column;
 }
 
 #editor-container:focus-within {
-    border-color: #667eea;
-    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+  border-color: #5e81ac; /* Frost */
 }
 
 /* CKEditor specific styling */
 .ck-editor {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .ck-editor__editable {
-    flex: 1;
-    min-height: 250px;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-    font-size: 14px;
-    line-height: 1.6;
+  flex: 1;
+  min-height: 250px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
 }
 
 .ck-toolbar {
-    border: none !important;
-    border-bottom: 1px solid #e9ecef !important;
-    border-radius: 0 !important;
-    background: #f8f9fa !important;
+  border: none !important;
+  border-bottom: 2px solid #4c566a !important; /* Polar Night */
+  background: #3b4252 !important; /* Polar Night */
+}
+
+.ck-toolbar .ck-button {
+  color: #d8dee9 !important; /* Snow Storm */
+}
+
+.ck-toolbar .ck-button:not(.ck-disabled):hover {
+  background: #4c566a !important; /* Polar Night */
+  color: #eceff4 !important; /* Snow Storm */
+}
+
+.ck-toolbar .ck-button.ck-on {
+  background: #5e81ac !important; /* Frost */
+  color: #eceff4 !important; /* Snow Storm */
+}
+
+.ck-toolbar .ck-dropdown__button {
+  color: #d8dee9 !important; /* Snow Storm */
+}
+
+.ck-toolbar .ck-dropdown__button:hover {
+  background: #4c566a !important; /* Polar Night */
 }
 
 .ck-content {
-    border: none !important;
-    border-radius: 0 !important;
-    padding: 16px !important;
+  border: none !important;
+  padding: 16px !important;
+  background: #2e3440 !important; /* Polar Night */
+  color: #d8dee9 !important; /* Snow Storm */
 }
 
-/* Output textarea styling */
-textarea {
-    padding: 16px;
-    border: 2px solid #e9ecef;
-    border-radius: 8px;
-    font-family: "SF Mono", Monaco, Consolas, monospace;
-    font-size: 14px;
-    line-height: 1.5;
-    resize: vertical;
-    transition: border-color 0.2s ease;
-    background: #fafafa;
-    min-height: 300px;
+.ck-content p {
+  color: #d8dee9 !important; /* Snow Storm */
 }
 
-textarea:focus {
-    outline: none;
-    border-color: #667eea;
-    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-    background: white;
+.ck-content h1,
+.ck-content h2,
+.ck-content h3,
+.ck-content h4,
+.ck-content h5,
+.ck-content h6 {
+  color: #eceff4 !important; /* Snow Storm */
 }
 
-textarea::placeholder {
-    color: #adb5bd;
+.ck-content strong,
+.ck-content b {
+  color: #eceff4 !important; /* Snow Storm */
+}
+
+.ck-content em,
+.ck-content i {
+  color: #e5e9f0 !important; /* Snow Storm */
+}
+
+.ck-content a {
+  color: #88c0d0 !important; /* Frost */
+}
+
+/* Nord theme dropdown panels */
+.ck-dropdown__panel {
+  background: #3b4252 !important; /* Polar Night */
+  border: 2px solid #4c566a !important; /* Polar Night */
+}
+
+.ck-list__item {
+  color: #d8dee9 !important; /* Snow Storm */
+}
+
+.ck-list__item:hover {
+  background: #4c566a !important; /* Polar Night */
+}
+
+.ck-button_with-text {
+  color: #d8dee9 !important; /* Snow Storm */
+}
+
+/* Additional Nord theme styling */
+.ck-placeholder::before {
+  color: #4c566a !important; /* Polar Night */
+}
+
+.ck-focused .ck-placeholder::before {
+  color: #4c566a !important; /* Polar Night */
+}
+
+.ck-editor__editable:not(.ck-focused) .ck-placeholder::before {
+  color: #4c566a !important; /* Polar Night */
+}
+
+/* Nord theme for color picker and other panels */
+.ck-color-ui-dropdown {
+  background: #3b4252 !important; /* Polar Night */
+}
+
+.ck-color-grid__tile {
+  border: 1px solid #4c566a !important; /* Polar Night */
+}
+
+.ck-input {
+  background: #4c566a !important; /* Polar Night */
+  border: 1px solid #5e81ac !important; /* Frost */
+  color: #d8dee9 !important; /* Snow Storm */
+}
+
+.ck-labeled-field-view__info {
+  color: #81a1c1 !important; /* Frost */
+}
+
+/* Scrollbar for Nord themed editor */
+.ck-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.ck-content::-webkit-scrollbar-track {
+  background: #3b4252; /* Polar Night */
+}
+
+.ck-content::-webkit-scrollbar-thumb {
+  background: #4c566a; /* Polar Night */
+}
+
+.ck-content::-webkit-scrollbar-thumb:hover {
+  background: #5e81ac; /* Frost */
+}
+
+/* Output container styling */
+.output-container {
+  border: 2px solid #4c566a;
+  background: #3b4252;
+}
+
+.output-container:hover {
+  border-color: #5e81ac; /* Frost */
 }
 
 #output-text {
-    background: #f8f9fa;
-    color: #495057;
+  margin: 0;
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  min-height: 300px;
+  max-height: 600px;
+  overflow-y: auto;
+  overflow-x: auto;
+  padding: 16px !important;
+  font-size: 14px !important;
+  line-height: 1.5 !important;
+  white-space: pre;
+  word-wrap: break-word;
+  color: #eceff4;
+}
+
+#output-text code {
+  background: transparent !important;
+  padding: 0 !important;
+  border: none !important;
+  font-family: "SF Mono", Monaco, Consolas, "Liberation Mono", "Courier New",
+    monospace !important;
+  font-size: 14px !important;
+  line-height: 1.5 !important;
+  white-space: pre;
+  word-wrap: break-word;
+  display: block;
+  min-height: 268px;
+}
+
+/* Prism.js theme overrides for better integration */
+.token.property {
+  color: #81a1c1 !important;
+}
+.token.string {
+  color: #a3be8c !important;
+}
+.token.number {
+  color: #b48ead !important;
+}
+.token.boolean {
+  color: #bf616a !important;
+}
+.token.null {
+  color: #ebcb8b !important;
+}
+.token.punctuation {
+  color: #88c0d0 !important;
+}
+
+/* Custom scrollbar for output */
+#output-text::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+#output-text::-webkit-scrollbar-track {
+  background: #3b4252; /* Polar Night */
+  border-radius: 4px;
+}
+
+#output-text::-webkit-scrollbar-thumb {
+  background: #4c566a; /* Polar Night */
+  border-radius: 4px;
+}
+
+#output-text::-webkit-scrollbar-thumb:hover {
+  background: #5e81ac; /* Frost */
+}
+
+/* Loading state */
+.output-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #4c566a; /* Polar Night */
+  font-style: italic;
+  min-height: 268px;
+}
+
+/* Empty state styling */
+.output-empty {
+  color: #4c566a; /* Polar Night */
+  font-style: italic;
+}
+
+/* Additional textarea styling for any remaining textareas */
+textarea {
+  padding: 16px;
+  border: 2px solid #4c566a; /* Polar Night */
+  border-radius: 8px;
+  font-family: "SF Mono", Monaco, Consolas, monospace;
+  font-size: 14px;
+  line-height: 1.5;
+  resize: vertical;
+  transition: border-color 0.2s ease;
+  background: #3b4252; /* Polar Night */
+  color: #d8dee9; /* Snow Storm */
+  min-height: 300px;
+}
+
+textarea:focus {
+  outline: none;
+  border-color: #5e81ac; /* Frost */
+  box-shadow: 0 0 0 3px rgba(94, 129, 172, 0.1);
+  background: #2e3440; /* Polar Night */
+}
+
+textarea::placeholder {
+  color: #4c566a; /* Polar Night */
 }
 
 /* Button styling */
@@ -183,13 +393,13 @@ textarea::placeholder {
 }
 
 .btn {
-  padding: 10px 20px;
-  border: none;
-  border-radius: 6px;
+  padding: 12px 24px;
+  border: 2px solid #4c566a; /* Polar Night */
+  background: #3b4252; /* Polar Night */
+  color: #d8dee9; /* Snow Storm */
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
-  transition: all 0.2s ease;
   text-decoration: none;
   display: inline-flex;
   align-items: center;
@@ -198,25 +408,25 @@ textarea::placeholder {
 }
 
 .btn-primary {
-  background: #667eea;
-  color: white;
+  background: #5e81ac;
+  border-color: #5e81ac;
+  color: #eceff4;
 }
 
 .btn-primary:hover:not(:disabled) {
-  background: #5a6fd8;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+  background: #81a1c1;
+  border-color: #81a1c1;
 }
 
 .btn-secondary {
-  background: #6c757d;
-  color: white;
+  background: #434c5e;
+  color: #eceff4;
+  border-color: #4c566a;
 }
 
 .btn-secondary:hover:not(:disabled) {
-  background: #5a6268;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(108, 117, 125, 0.3);
+  background: #4c566a;
+  border-color: #81a1c1;
 }
 
 .btn:disabled {
@@ -226,19 +436,20 @@ textarea::placeholder {
 }
 
 .btn.copied {
-  background: #28a745;
+  background: #a3be8c; /* Aurora green */
+  border-color: #a3be8c;
   transform: scale(0.95);
 }
 
 /* Instructions */
 .instructions {
-  border-top: 1px solid #e9ecef;
+  border-top: 1px solid #4c566a; /* Polar Night */
   padding-top: 40px;
 }
 
 .instructions h3 {
   font-size: 1.25rem;
-  color: #2c3e50;
+  color: #eceff4; /* Snow Storm */
   margin-bottom: 24px;
   text-align: center;
 }
@@ -257,7 +468,7 @@ textarea::placeholder {
 }
 
 .instruction-item h4 {
-  color: #495057;
+  color: #d8dee9; /* Snow Storm */
   margin-bottom: 16px;
   font-size: 1.1rem;
 }
@@ -269,7 +480,7 @@ textarea::placeholder {
 
 .instruction-item li {
   padding: 8px 0;
-  border-bottom: 1px solid #f8f9fa;
+  border-bottom: 1px solid #434c5e; /* Polar Night */
 }
 
 .instruction-item li:last-child {
@@ -277,16 +488,16 @@ textarea::placeholder {
 }
 
 .instruction-item code {
-  background: #f8f9fa;
+  background: #4c566a; /* Polar Night */
+  color: #88c0d0; /* Frost */
   padding: 2px 6px;
   border-radius: 3px;
   font-family: "SF Mono", Monaco, Consolas, monospace;
   font-size: 0.9em;
-  color: #e83e8c;
 }
 
 .instruction-item pre {
-  background: #f8f9fa;
+  background: #3b4252; /* Polar Night */
   padding: 16px;
   border-radius: 6px;
   overflow-x: auto;
@@ -296,15 +507,110 @@ textarea::placeholder {
 .instruction-item pre code {
   background: none;
   padding: 0;
-  color: #495057;
+  color: #d8dee9; /* Snow Storm */
 }
 
 /* Footer */
 .footer {
+  background: #3b4252; /* Polar Night */
+  border: 2px solid #4c566a; /* Polar Night */
+  border-top: 3px solid #5e81ac; /* Frost */
+  color: #d8dee9; /* Snow Storm */
+  padding: 30px 0;
+}
+
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.footer-info {
   text-align: center;
-  color: white;
-  opacity: 0.8;
+}
+
+.footer-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 5px;
+  color: #eceff4; /* Snow Storm */
+}
+
+.footer-description {
   font-size: 0.9rem;
+  opacity: 0.8;
+  margin: 0;
+}
+
+.footer-links {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+}
+
+.footer-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #d8dee9; /* Snow Storm */
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  padding: 10px 20px;
+  border: 2px solid #4c566a; /* Polar Night */
+  background: #434c5e; /* Polar Night */
+}
+
+.footer-link:hover {
+  background: #4c566a; /* Polar Night */
+  border-color: #5e81ac; /* Frost */
+  color: #eceff4; /* Snow Storm */
+}
+
+.footer-link svg {
+  flex-shrink: 0;
+}
+
+.footer-author {
+  text-align: center;
+}
+
+.footer-author p {
+  font-size: 0.85rem;
+  opacity: 0.7;
+  margin: 0;
+}
+
+.footer-author strong {
+  color: #eceff4; /* Snow Storm */
+  opacity: 1;
+}
+
+/* Responsive footer */
+@media (max-width: 768px) {
+  .footer {
+    padding: 20px 0;
+  }
+
+  .footer-content {
+    gap: 15px;
+    padding: 0 20px;
+  }
+
+  .footer-links {
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+  }
+
+  .footer-link {
+    justify-content: center;
+    width: 100%;
+    max-width: 200px;
+  }
 }
 
 /* Animations */
@@ -348,7 +654,7 @@ textarea::placeholder {
 
 /* Focus improvements for accessibility */
 .btn:focus-visible {
-  outline: 2px solid #667eea;
+  outline: 2px solid #88c0d0; /* Frost */
   outline-offset: 2px;
 }
 
