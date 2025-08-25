@@ -142,12 +142,28 @@ function processHtmlNode(
                     // Paragraph - add content and line break
                     processHtmlNode(child, result, indentLevel, newOptions);
                     if (result.length > 0) {
-                        result.push({ text: "", options: { breakLine: true } });
+                        // Add newline to the last text element or create new one
+                        const lastItem = result[result.length - 1];
+                        if (lastItem && !lastItem.options?.bullet) {
+                            lastItem.text += '\n';
+                        } else {
+                            result.push({ text: '\n' });
+                        }
                     }
                     continue;
                     
                 case 'br':
-                    result.push({ text: "", options: { breakLine: true } });
+                    // Add newline to the last text element or create new one
+                    if (result.length > 0) {
+                        const lastItem = result[result.length - 1];
+                        if (lastItem && !lastItem.options?.bullet) {
+                            lastItem.text += '\n';
+                        } else {
+                            result.push({ text: '\n' });
+                        }
+                    } else {
+                        result.push({ text: '\n' });
+                    }
                     continue;
                     
                 case 'ul':
@@ -230,7 +246,13 @@ function processListElement(
                 // Add line break after each list item except the last one
                 const isLastItem = child === listElement.children[listElement.children.length - 1];
                 if (!isLastItem) {
-                    result.push({ text: "", options: { breakLine: true } });
+                    // Add newline to the last text element or create new one
+                    const lastItem = result[result.length - 1];
+                    if (lastItem && !lastItem.options?.bullet) {
+                        lastItem.text += '\n';
+                    } else {
+                        result.push({ text: '\n' });
+                    }
                 }
             }
             
@@ -239,5 +261,12 @@ function processListElement(
     }
     
     // Add extra line break after the entire list
-    result.push({ text: "", options: { breakLine: true } });
+    if (result.length > 0) {
+        const lastItem = result[result.length - 1];
+        if (lastItem && !lastItem.options?.bullet) {
+            lastItem.text += '\n';
+        } else {
+            result.push({ text: '\n' });
+        }
+    }
 } 
