@@ -108,7 +108,7 @@ body {
     font-size: 0.85em;
 }
 
-/* CKEditor and Textarea styling */
+/* QuillJS and Textarea styling */
 #editor-container {
   border: 2px solid #4c566a; /* Polar Night */
   overflow: hidden;
@@ -123,15 +123,8 @@ body {
     border-color: #5e81ac; /* Frost */
 }
 
-/* CKEditor specific styling */
-.ck-editor {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    padding: 16px;
-}
-
-.ck-editor__editable {
+/* QuillJS specific styling */
+.ql-editor {
   flex: 1;
   min-height: 250px;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
@@ -141,134 +134,139 @@ body {
   word-wrap: break-word;
   overflow-wrap: break-word;
   white-space: normal;
+  color: #d8dee9 !important; /* Snow Storm */
+  background: #2e3440 !important; /* Polar Night */
 }
 
-.ck-toolbar {
-    border: none !important;
-    border-bottom: 2px solid #4c566a !important; /* Polar Night */
-    background: #3b4252 !important; /* Polar Night */
-}
-
-.ck-toolbar .ck-button {
+.ql-editor p {
     color: #d8dee9 !important; /* Snow Storm */
 }
 
-.ck-toolbar .ck-button:not(.ck-disabled):hover {
+.ql-editor h1,
+.ql-editor h2,
+.ql-editor h3,
+.ql-editor h4,
+.ql-editor h5,
+.ql-editor h6 {
+    color: #eceff4 !important; /* Snow Storm */
+}
+
+.ql-editor strong,
+.ql-editor b {
+    color: #eceff4 !important; /* Snow Storm */
+}
+
+.ql-editor em,
+.ql-editor i {
+    color: #e5e9f0 !important; /* Snow Storm */
+}
+
+/* QuillJS Toolbar styling */
+.ql-toolbar.ql-snow {
+    border: none !important;
+    border-bottom: 2px solid #4c566a !important; /* Polar Night */
+    background: #3b4252 !important; /* Polar Night */
+    padding: 8px !important;
+}
+
+.ql-toolbar.ql-snow .ql-formats {
+    margin-right: 15px !important;
+}
+
+.ql-toolbar.ql-snow button {
+    color: #d8dee9 !important; /* Snow Storm */
+    background: transparent !important;
+    border: none !important;
+    padding: 4px 6px !important;
+    border-radius: 3px !important;
+    transition: all 0.2s ease !important;
+}
+
+.ql-toolbar.ql-snow button:hover {
     background: #4c566a !important; /* Polar Night */
     color: #eceff4 !important; /* Snow Storm */
 }
 
-.ck-toolbar .ck-button.ck-on {
+.ql-toolbar.ql-snow button.ql-active {
     background: #5e81ac !important; /* Frost */
     color: #eceff4 !important; /* Snow Storm */
 }
 
-.ck-toolbar .ck-dropdown__button {
+.ql-toolbar.ql-snow .ql-picker {
     color: #d8dee9 !important; /* Snow Storm */
 }
 
-.ck-toolbar .ck-dropdown__button:hover {
-    background: #4c566a !important; /* Polar Night */
-}
-
-.ck-content {
+.ql-toolbar.ql-snow .ql-picker-label {
+    color: #d8dee9 !important; /* Snow Storm */
     border: none !important;
-    padding: 16px !important;
+    background: transparent !important;
+}
+
+.ql-toolbar.ql-snow .ql-picker-label:hover {
+    background: #4c566a !important; /* Polar Night */
+    color: #eceff4 !important; /* Snow Storm */
+}
+
+.ql-toolbar.ql-snow .ql-picker-options {
+    background: #3b4252 !important; /* Polar Night */
+    border: 2px solid #4c566a !important; /* Polar Night */
+    border-radius: 6px !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3) !important;
+}
+
+.ql-toolbar.ql-snow .ql-picker-item {
+    color: #d8dee9 !important; /* Snow Storm */
+}
+
+.ql-toolbar.ql-snow .ql-picker-item:hover {
+    background: #4c566a !important; /* Polar Night */
+    color: #eceff4 !important; /* Snow Storm */
+}
+
+.ql-toolbar.ql-snow .ql-stroke {
+    stroke: #d8dee9 !important; /* Snow Storm */
+}
+
+.ql-toolbar.ql-snow .ql-fill {
+    fill: #d8dee9 !important; /* Snow Storm */
+}
+
+.ql-toolbar.ql-snow .ql-picker-label svg {
+    stroke: #d8dee9 !important; /* Snow Storm */
+}
+
+/* QuillJS Container styling */
+.ql-container.ql-snow {
+    border: none !important;
     background: #2e3440 !important; /* Polar Night */
-    color: #d8dee9 !important; /* Snow Storm */
+    min-height: 250px !important;
 }
 
-.ck-content p {
-    color: #d8dee9 !important; /* Snow Storm */
+/* QuillJS Editor focus state */
+.ql-editor.ql-blank::before {
+    color: #81a1c1 !important; /* Frost */
+    font-style: italic !important;
 }
 
-.ck-content h1,
-.ck-content h2,
-.ck-content h3,
-.ck-content h4,
-.ck-content h5,
-.ck-content h6 {
-    color: #eceff4 !important; /* Snow Storm */
-}
-
-.ck-content strong,
-.ck-content b {
-    color: #eceff4 !important; /* Snow Storm */
-}
-
-.ck-content em,
-.ck-content i {
-    color: #e5e9f0 !important; /* Snow Storm */
-}
-
-.ck-content a {
+/* QuillJS link styling */
+.ql-editor a {
     color: #88c0d0 !important; /* Frost */
 }
 
-/* Nord theme dropdown panels */
-.ck-dropdown__panel {
-    background: #3b4252 !important; /* Polar Night */
-    border: 2px solid #4c566a !important; /* Polar Night */
-}
-
-.ck-list__item {
-    color: #d8dee9 !important; /* Snow Storm */
-}
-
-.ck-list__item:hover {
-    background: #4c566a !important; /* Polar Night */
-}
-
-.ck-button_with-text {
-    color: #d8dee9 !important; /* Snow Storm */
-}
-
-/* Additional Nord theme styling */
-.ck-placeholder::before {
-    color: #4c566a !important; /* Polar Night */
-}
-
-.ck-focused .ck-placeholder::before {
-    color: #4c566a !important; /* Polar Night */
-}
-
-.ck-editor__editable:not(.ck-focused) .ck-placeholder::before {
-    color: #4c566a !important; /* Polar Night */
-}
-
-/* Nord theme for color picker and other panels */
-.ck-color-ui-dropdown {
-    background: #3b4252 !important; /* Polar Night */
-}
-
-.ck-color-grid__tile {
-    border: 1px solid #4c566a !important; /* Polar Night */
-}
-
-.ck-input {
-    background: #4c566a !important; /* Polar Night */
-    border: 1px solid #5e81ac !important; /* Frost */
-    color: #d8dee9 !important; /* Snow Storm */
-}
-
-.ck-labeled-field-view__info {
-    color: #81a1c1 !important; /* Frost */
-}
-
-/* Scrollbar for Nord themed editor */
-.ck-content::-webkit-scrollbar {
+/* Scrollbar for QuillJS editor */
+.ql-editor::-webkit-scrollbar {
     width: 8px;
 }
 
-.ck-content::-webkit-scrollbar-track {
+.ql-editor::-webkit-scrollbar-track {
     background: #3b4252; /* Polar Night */
 }
 
-.ck-content::-webkit-scrollbar-thumb {
+.ql-editor::-webkit-scrollbar-thumb {
     background: #4c566a; /* Polar Night */
 }
 
-.ck-content::-webkit-scrollbar-thumb:hover {
+.ql-editor::-webkit-scrollbar-thumb:hover {
     background: #5e81ac; /* Frost */
 }
 
