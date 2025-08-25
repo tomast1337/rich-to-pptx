@@ -53,6 +53,8 @@ function processHtmlNode(
             inheritedOptions.align = 'center';
         } else if (node.classList.contains('ql-align-right')) {
             inheritedOptions.align = 'right';
+        } else if (node.classList.contains('ql-align-left')) {
+            inheritedOptions.align = 'left';
         }
     }
     for (const child of Array.from(node.childNodes)) {
