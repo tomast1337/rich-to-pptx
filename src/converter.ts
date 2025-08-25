@@ -2,7 +2,7 @@ import type * as PptxGenJS from 'pptxgenjs';
 // Types for PptxGenJS TextProps
 export type PptxGenJSTextProps = PptxGenJS.default.TextProps
 
-// Removed markdown support - now only supports rich text (HTML from CKEditor)
+// Supports rich text conversion from QuillJS HTML output
 
 /**
  * Convert PptxGenJS TextProps array to a readable JSON format for display
@@ -12,47 +12,78 @@ export function formatPptxTextPropsForDisplay(props: PptxGenJSTextProps[]): stri
 }
 
 /**
- * Create a sample rich text for testing (HTML format for CKEditor)
+ * Create a sample rich text for testing (HTML format for QuillJS)
  */
 export function getSampleRichText(): string {
-    return `<p>This is a sample text that demonstrates rich text formatting.</p>
-
-<p>You can use <strong>bold text</strong>, <em>italic text</em>, <u>underlined text</u>, and <s>strikethrough text</s>.</p>
-
-<p>Bullet lists work great with CKEditor:</p>
-<ul>
-    <li>First bullet point</li>
-    <li>Second bullet point with <strong>formatting</strong>
-        <ul>
-            <li>Nested bullet (indented)</li>
-            <li>Another nested item with <em>italic text</em>
-                <ul>
-                    <li>Deeply nested bullet</li>
-                </ul>
-            </li>
-        </ul>
-    </li>
-    <li>Back to main level</li>
-</ul>
-
-<p>Numbered lists:</p>
+    return `<p><strong>Super example, btw, this text has font size
+        12</strong></p>
+<p class="ql-align-justify"><span>This example tries to have
+        an example of a better thing that we should support, from </span><strong>bold text</strong><span> to
+    </span><em>italic text</em><span>, </span><u>underlined</u><span> text, and strikethrough text. This whole paragraph
+        is supposed to be justified, so I’m trying to type as much as possible. </span><strong>HERE IS AN EXAMPLE OF
+        ALL-CAPS TEXT</strong><span>. This text has a font size of 10. To truly test the
+        capabilities of our text rendering engine, </span><strong><em>we must include a diverse and comprehensive set
+            of stylistic variations. </em></strong><span>This includes not only basic formatting but also
+        mixed styles like </span><strong><em>bold and
+            italic</em></strong><span> or even</span><u> underline and strikethrough </u><span>used together.
+        Furthermore, we should handle
+        different font sizes gracefully. THIS SENTENCE IS IN ALL CAPS WITH A LARGER FONT, while this one returns to a
+        standard size. The ultimate goal is to ensure that justified alignment works flawlessly, wrapping text evenly
+        across the full width of the container without disrupting the applied styles. This requires a robust parser that
+        can handle nested and sequential formatting commands without failure. Let's add more text to ensure the
+        justification is clearly visible. The quick brown fox jumps over the lazy dog. Pack my box with five dozen
+        liquor jugs. How razorback-jumping frogs can level six piqued gymnasts</span></p>
+<p><span>With this program, we hope to solve:</span></p>
 <ol>
-    <li>First numbered item</li>
-    <li>Second numbered item with <strong>formatting</strong>
-        <ol>
-            <li>Nested numbered item</li>
-            <li>Another nested item with <u>underline</u></li>
-        </ol>
-    </li>
-    <li>Back to main numbering</li>
+    <li data-list="ordered"><span class="ql-ui" contenteditable="false"></span><strong>Parse the rich
+            text</strong><span>: Correctly identify all the different
+            formatting styles applied to various text segments.</span></li>
+    <li data-list="ordered"><span class="ql-ui" contenteditable="false"></span><strong>Map the styles:</strong><span>
+            Translate each discovered style into the
+            corresponding properties understood by the pptxgenjs library.</span></li>
+    <li data-list="ordered"><span class="ql-ui" contenteditable="false"></span><strong>Generate PowerPoint
+            content:</strong><span> Use the library to create a slide
+            (PptxGenJS.Slide) and add a text object (slide.addText()) that accurately recreates the original
+            formatting.</span></li>
 </ol>
-
-<p>Regular paragraphs work with proper spacing and formatting.</p>`;
+<p class="ql-align-center"><br></p>
+<p class="ql-align-center"><span>This is an example of
+        multiple languages, and centered text:</span></p>
+<ol>
+    <li data-list="bullet"><span class="ql-ui" contenteditable="false"></span><span>Obuoliai Agurkai بطاطا تفاح Огурцы
+            Помидоры 배추
+            시금치 白菜 菠菜</span></li>
+    <li data-list="bullet"><span class="ql-ui" contenteditable="false"></span><span>Duona Ryžiai أرز معكرونة Хлеб Соль 쌀
+            국수 米
+            面条</span></li>
+    <li data-list="bullet"><span class="ql-ui" contenteditable="false"></span><span>Pienas Kiauliena لحم دجاج Молоко Сыр
+            달걀 두부 鸡蛋
+            豆腐</span></li>
+    <li data-list="bullet"><span class="ql-ui" contenteditable="false"></span><span>Arbata Druska قهوة شاي Перец Шоколад
+            고추장 초콜릿 酱油
+            巧克力</span></li>
+    <li data-list="bullet"><span class="ql-ui" contenteditable="false"></span><br></li>
+</ol>
+<p><span>I have no Idea what is written below, I just hope
+        that it isn't something bad.</span></p>
+<p><span>بالتأكيد، إليك فقرة كاملة باللغة العربية:</span>
+</p>
+<p><span>يَسْعَى الْعُلَمَاءُ دَائِمًا لِفَهْمِ أَسْرَارِ
+        الْكَوْنِ وَكَشْفِ غُمُوضِهِ، مُسْتَخْدِمِينَ فِي ذَلِكَ أَدَقَّ الْأَجْهِزَةِ وَأَطْوَرَهَا. فَمِنْ دِرَاسَةِ
+        الْجُسَيْمَاتِ الدَّقِيقَةِ جِدًّا إِلَى مُلَاحَظَةِ الْمَجَرَّاتِ الْبَعِيدَةِ جِدًّا، تُظْهِرُ الْبَشَرِيَّةُ
+        شَغَفَهَا الْأَزَلِيَّ بِالْمَعْرِفَةِ. وَرُبَّمَا سَتَكْشِفُ لَنَا هَذِهِ الرِّحْلَةُ الْعِلْمِيَّةُ يَوْمًا
+        مَا عَنْ أَجْوِبَةٍ لِأَعْظَمِ الْأَسْئِلَةِ الْوُجُودِيَّةِ الَّتِي حَيَّرَتِ الْعُقُولَ عَلَى مَرِّ
+        الْعُصُور.</span></p>
+<p><strong>好</strong><span>的，</span><strong>这</strong><span>是一</span><strong>段</strong><span>关</span><strong>于</strong><span>左</span><strong>对</strong><span>齐</span><strong>文</strong><span>本</span><strong>的</strong><span>中</span><strong>文</strong><span>段</span><strong>落</strong><span>，并</span><strong>设</strong><span>置</span><strong>为</strong><span>左</span><strong>对</strong><span>齐。</span>
+</p>
+<p><br></p>
+<p><span>左对齐文本是一种最常见的段落对齐方式。在这种格式下，</span><strong><em><u>段落的每一行都从同一个左侧起始位置开始</u></em></strong><span>，但结束位置则根据每行字数的多少而有所不同，</span><em><u>因此右侧边缘会呈现参差不齐的自然状态</u></em><span>。这种排版方式显得自然而随意，易于阅读，并且不会像两端对齐那样产生单词或字符间不均匀的间距。它被广泛用于书籍、文章和网页等各种印刷和数字媒体中，</span><strong>为读者提供舒适流畅的阅读体验</strong><span>。</span>
+</p>`;
 } 
 
 /**
- * Convert HTML directly to PptxGenJS-compatible format (optimized for CKEditor)
- * @param html - HTML string from CKEditor
+ * Convert HTML directly to PptxGenJS-compatible format (optimized for QuillJS)
+ * @param html - HTML string from QuillJS
  * @returns Array of PptxGenJS TextProps
  */
 export function convertHtmlToPptxRichText(html: string): PptxGenJSTextProps[] {
@@ -122,7 +153,7 @@ function processHtmlNode(
                     break;
                     
                 case 'span':
-                    // Handle CKEditor styled spans
+                    // Handle QuillJS styled spans
                     const style = element.getAttribute('style') || '';
                     if (style.includes('font-weight: bold') || style.includes('font-weight:bold')) {
                         newOptions.bold = true;
