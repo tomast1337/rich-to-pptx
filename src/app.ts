@@ -46,13 +46,11 @@ class RichTextConverterApp {
                 theme: 'snow',
                 modules: {
                     toolbar: [
-                        [{ 'header': [1, 2, 3, false] }],
                         ['bold', 'italic', 'underline', 'strike'],
-                        [{ 'color': [] }, { 'background': [] }],
-                        [{ 'font': [] }, { 'size': ['small', false, 'large', 'huge'] }],
                         [{ 'list': 'ordered'}, { 'list': 'bullet' }],
                         [{ 'align': [] }],
-                        ['link', 'image'],
+                        [{ 'script': 'sub'}, { 'script': 'super' }],
+                        ['link'],
                         ['clean']
                     ]
                 },
@@ -121,7 +119,7 @@ class RichTextConverterApp {
             try {
                 // Validate JSON first
                 JSON.parse(content);
-                this.outputCodeElement.className = 'language-json';
+                this.outputCodeElement.className = 'language-javascript';
                 if (typeof Prism !== 'undefined') {
                     Prism.highlightElement(this.outputCodeElement);
                 }
@@ -201,6 +199,7 @@ class RichTextConverterApp {
 
             // Parse the JSON content
             let textProps: PptxGenJSTextProps[];
+            console.log(content);
             try {
                 textProps = JSON.parse(content) as PptxGenJSTextProps[];
             } catch (error) {
