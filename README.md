@@ -29,15 +29,9 @@ Convert rich text to PptxGenJS-compatible format using QuillJS editor.
 
 ## Development
 
-### Start Development Server
-```bash
-bun run dev
-```
-This builds the project and starts the development server at `http://localhost:8000`
-
 ### Development with Auto-rebuild
 ```bash
-bun run dev:watch
+bun run dev
 ```
 This watches for file changes, automatically rebuilds, and serves at `http://localhost:8000`
 
@@ -55,7 +49,7 @@ Automatically rebuilds when source files change
 
 ### Custom Development Server
 ```bash
-bun run dev-server
+bun run start
 ```
 Runs a custom development server with better source map support
 
@@ -87,33 +81,10 @@ rich-to-pptx/
 
 | Script | Description |
 |--------|-------------|
-| `bun run dev` | Build and start development server |
-| `bun run dev:watch` | Watch mode with auto-rebuild and serve |
+| `bun run dev` | Watch mode for builds and start development server |
 | `bun run build` | Build production bundle |
 | `bun run build:watch` | Watch mode for builds |
-| `bun run serve` | Start with Bun's built-in hot reload |
-| `bun run start` | Run built application |
-
-## Browser Support
-
-- Chrome 90+
-- Firefox 88+
-- Safari 14+
-- Edge 90+
-
-## Dependencies
-
-- **QuillJS 2.0.3**: Rich text editor
-- **PptxGenJS**: PowerPoint generation library
-- **PrismJS**: Syntax highlighting
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Run tests: `bun test`
-5. Submit a pull request
+| `bun run start` | Start development server |
 
 ## License
 
