@@ -6,9 +6,8 @@
   "main": "dist/app.js",
   "scripts": {
     "dev": "bun run build:watch & bun run dev-server",
-    "build": "bun build src/app.ts --outdir dist --target browser",
-    "build:watch": "bun build src/app.ts --outdir dist --target browser --watch",
-    "serve": "bun run dev-server",
+    "build": "bun build.ts",
+    "build:watch": "bun build.ts --watch",
     "start": "bun run dev-server"
   },
   "devDependencies": {
