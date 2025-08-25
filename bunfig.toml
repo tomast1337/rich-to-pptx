@@ -1,0 +1,13 @@
+[build]
+entrypoints = ["src/app.ts"]
+outdir = "dist"
+target = "browser"
+minify = false
+sourcemap = "external"
+
+[dev]
+port = 8000
+hostname = "localhost"
+
+[install]
+exact = false 

@@ -3,18 +3,27 @@
   "version": "1.0.0",
   "description": "Convert rich text to PptxGenJS format",
   "type": "module",
-  "main": "dist/index.js",
+  "main": "dist/app.js",
   "scripts": {
-    "build": "tsc",
-    "dev": "tsc --watch",
-    "serve": "python3 -m http.server 8000"
+    "dev": "bun run build:watch & bun run dev-server",
+    "build": "bun build src/app.ts --outdir dist --target browser",
+    "build:watch": "bun build src/app.ts --outdir dist --target browser --watch",
+    "serve": "bun run dev-server",
+    "start": "bun run dev-server"
   },
   "devDependencies": {
-    "@types/node": "^20.0.0",
-    "@types/prismjs": "^1.26.5",
-    "typescript": "^5.0.0"
+    "bun-types": "latest",
+    "@types/bun": "latest"
   },
   "dependencies": {
-    "pptxgenjs": "^4.0.1"
+    "pptxgenjs": "^4.0.1",
+    "quill": "^2.0.3"
+  },
+  "engines": {
+    "bun": ">=1.0.0"
+  },
+  "private": true,
+  "peerDependencies": {
+    "typescript": "^5"
   }
 }
