@@ -285,7 +285,7 @@ export function formatPptxTextPropsForDisplay(props: PptxGenJSTextProps[]): stri
  * Create a sample rich text for testing
  */
 export function getSampleRichText(): string {
-  return `This is **bold text** and this is *italic text*.
+  return `This is **bold text**, and this is *italic text*.
 
 Here's some ~~strikethrough~~ text and <u>underlined</u> text.
 
