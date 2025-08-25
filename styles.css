@@ -1,0 +1,313 @@
+/* Reset and base styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, sans-serif;
+  line-height: 1.6;
+  color: #333;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+}
+
+/* Layout */
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 20px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header */
+.header {
+  text-align: center;
+  margin-bottom: 40px;
+  color: white;
+}
+
+.header h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.subtitle {
+  font-size: 1.1rem;
+  opacity: 0.9;
+  font-weight: 400;
+}
+
+/* Main content */
+.main {
+  flex: 1;
+  background: white;
+  border-radius: 16px;
+  padding: 40px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+/* Converter grid */
+.converter-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  margin-bottom: 40px;
+}
+
+@media (max-width: 768px) {
+  .converter-grid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+}
+
+/* Section styling */
+.input-section,
+.output-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.section-header {
+  margin-bottom: 16px;
+}
+
+.section-header h2 {
+  font-size: 1.5rem;
+  color: #2c3e50;
+  margin-bottom: 8px;
+}
+
+.help-text {
+  color: #6c757d;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.help-text code {
+  background: #f8f9fa;
+  padding: 2px 4px;
+  border-radius: 3px;
+  font-family: "SF Mono", Monaco, Consolas, monospace;
+  font-size: 0.85em;
+}
+
+/* Textarea styling */
+textarea {
+  flex: 1;
+  padding: 16px;
+  border: 2px solid #e9ecef;
+  border-radius: 8px;
+  font-family: "SF Mono", Monaco, Consolas, monospace;
+  font-size: 14px;
+  line-height: 1.5;
+  resize: vertical;
+  transition: border-color 0.2s ease;
+  background: #fafafa;
+}
+
+textarea:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+  background: white;
+}
+
+textarea::placeholder {
+  color: #adb5bd;
+}
+
+#output-text {
+  background: #f8f9fa;
+  color: #495057;
+}
+
+/* Button styling */
+.button-group {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 120px;
+}
+
+.btn-primary {
+  background: #667eea;
+  color: white;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: #5a6fd8;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.btn-secondary {
+  background: #6c757d;
+  color: white;
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background: #5a6268;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(108, 117, 125, 0.3);
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn.copied {
+  background: #28a745;
+  transform: scale(0.95);
+}
+
+/* Instructions */
+.instructions {
+  border-top: 1px solid #e9ecef;
+  padding-top: 40px;
+}
+
+.instructions h3 {
+  font-size: 1.25rem;
+  color: #2c3e50;
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.instructions-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+}
+
+@media (max-width: 768px) {
+  .instructions-grid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+}
+
+.instruction-item h4 {
+  color: #495057;
+  margin-bottom: 16px;
+  font-size: 1.1rem;
+}
+
+.instruction-item ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.instruction-item li {
+  padding: 8px 0;
+  border-bottom: 1px solid #f8f9fa;
+}
+
+.instruction-item li:last-child {
+  border-bottom: none;
+}
+
+.instruction-item code {
+  background: #f8f9fa;
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-family: "SF Mono", Monaco, Consolas, monospace;
+  font-size: 0.9em;
+  color: #e83e8c;
+}
+
+.instruction-item pre {
+  background: #f8f9fa;
+  padding: 16px;
+  border-radius: 6px;
+  overflow-x: auto;
+  margin-top: 12px;
+}
+
+.instruction-item pre code {
+  background: none;
+  padding: 0;
+  color: #495057;
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  color: white;
+  opacity: 0.8;
+  font-size: 0.9rem;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.main {
+  animation: fadeIn 0.6s ease-out;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .container {
+    padding: 15px;
+  }
+
+  .main {
+    padding: 24px;
+  }
+
+  .header h1 {
+    font-size: 2rem;
+  }
+
+  .button-group {
+    flex-direction: column;
+  }
+
+  .btn {
+    min-width: auto;
+  }
+}
+
+/* Focus improvements for accessibility */
+.btn:focus-visible {
+  outline: 2px solid #667eea;
+  outline-offset: 2px;
+}
+
+textarea:focus-visible {
+  outline: none;
+}

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rich Text to PptxGenJS Converter</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Rich Text to PptxGenJS Converter</h1>
+            <p class="subtitle">Convert Markdown and HTML rich text to PptxGenJS-compatible format</p>
+        </header>
+
+        <main class="main">
+            <div class="converter-grid">
+                <!-- Input Section -->
+                <div class="input-section">
+                    <div class="section-header">
+                        <h2>Input (Rich Text)</h2>
+                        <div class="help-text">
+                            Supports: <strong>**bold**</strong>, <em>*italic*</em>, <u>&lt;u&gt;underline&lt;/u&gt;</u>,
+                            <del>~~strikethrough~~</del>
+                        </div>
+                    </div>
+                    <textarea id="input-text"
+                        placeholder="Enter your rich text here...&#10;&#10;Examples:&#10;**Bold text**&#10;*Italic text*&#10;<u>Underlined text</u>&#10;~~Strikethrough text~~"
+                        rows="15"></textarea>
+                    <div class="button-group">
+                        <button id="sample-btn" class="btn btn-secondary">Load Sample</button>
+                        <button id="clear-btn" class="btn btn-secondary">Clear (Ctrl+K)</button>
+                        <button id="convert-btn" class="btn btn-primary">Convert (Ctrl+Enter)</button>
+                    </div>
+                </div>
+
+                <!-- Output Section -->
+                <div class="output-section">
+                    <div class="section-header">
+                        <h2>Output (PptxGenJS Format)</h2>
+                        <div class="help-text">
+                            Ready to use with PptxGenJS <code>addText()</code> method
+                        </div>
+                    </div>
+                    <textarea id="output-text" readonly placeholder="Converted PptxGenJS format will appear here..."
+                        rows="15"></textarea>
+                    <div class="button-group">
+                        <button id="copy-btn" class="btn btn-primary" disabled>Copy to Clipboard</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Usage Instructions -->
+            <div class="instructions">
+                <h3>Usage Instructions</h3>
+                <div class="instructions-grid">
+                    <div class="instruction-item">
+                        <h4>Supported Formats</h4>
+                        <ul>
+                            <li><strong>Bold:</strong> <code>**text**</code> or <code>__text__</code></li>
+                            <li><strong>Italic:</strong> <code>*text*</code> or <code>_text_</code></li>
+                            <li><strong>Underline:</strong> <code>&lt;u&gt;text&lt;/u&gt;</code></li>
+                            <li><strong>Strikethrough:</strong> <code>~~text~~</code></li>
+                            <li><strong>Line breaks:</strong> Empty lines or newlines</li>
+                        </ul>
+                    </div>
+                    <div class="instruction-item">
+                        <h4>Usage with PptxGenJS</h4>
+                        <pre><code>const richTextArray = /* paste output here */;
+slide.addText(richTextArray, {
+    x: 1, y: 1, w: 8, h: 4
+});</code></pre>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <p>Nicolas Vyčas Nery</p>
+        </footer>
+    </div>
+
+    <script type="module" src="dist/app.js"></script>
+</body>
+
+</html>
