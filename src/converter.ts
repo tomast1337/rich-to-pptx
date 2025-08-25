@@ -2,6 +2,8 @@ import type * as PptxGenJS  from 'pptxgenjs';
 // Types for PptxGenJS TextProps
 export type PptxGenJSTextProps =  PptxGenJS.default.TextProps
 
+
+
 // Token interface for parsing
 interface Token {
   type: 'text' | 'bold' | 'italic' | 'underline' | 'strike' | 'break';
