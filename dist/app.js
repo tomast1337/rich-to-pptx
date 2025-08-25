@@ -1,6 +1,7 @@
-import { convertToPptxRichText, formatPptxTextPropsForDisplay, getSampleRichText, convertHtmlToMarkdown } from './converter.js';
+import { formatPptxTextPropsForDisplay, getSampleRichText, convertHtmlToPptxRichText } from './converter.js';
 class RichTextConverterApp {
     constructor() {
+        this.editor = null;
         this.initializeElements();
         this.initializeEditor();
     }
@@ -152,9 +153,11 @@ class RichTextConverterApp {
         this.sampleButton.addEventListener('click', () => this.handleLoadSample());
         this.copyButton.addEventListener('click', () => this.handleCopy());
         // Auto-convert on content change
-        this.editor.model.document.on('change:data', () => {
-            this.handleConvert();
-        });
+        if (this.editor) {
+            this.editor.model.document.on('change:data', () => {
+                this.handleConvert();
+            });
+        }
         // Handle keyboard shortcuts
         document.addEventListener('keydown', (e) => {
             if (e.ctrlKey || e.metaKey) {
@@ -215,10 +218,8 @@ class RichTextConverterApp {
                 this.setOutputContent('[]');
                 return;
             }
-            // Convert HTML to markdown first, then to PptxGenJS format
-            // TODO: Enhanced conversion will be completed in next update
-            const markdownContent = convertHtmlToMarkdown(htmlContent);
-            const result = convertToPptxRichText(markdownContent);
+            // Convert HTML directly to PptxGenJS format (optimized for CKEditor)
+            const result = convertHtmlToPptxRichText(htmlContent);
             const formattedOutput = formatPptxTextPropsForDisplay(result);
             this.setOutputContent(formattedOutput);
             // Update button states
@@ -266,32 +267,11 @@ class RichTextConverterApp {
     handleLoadSample() {
         if (!this.editor)
             return;
-        // Convert sample markdown to HTML for CKEditor
-        const sampleText = getSampleRichText();
-        const sampleHtml = this.convertMarkdownToHtml(sampleText);
+        // Load sample HTML directly into CKEditor
+        const sampleHtml = getSampleRichText();
         this.editor.setData(sampleHtml);
         this.handleConvert();
         this.editor.editing.view.focus();
-    }
-    convertMarkdownToHtml(markdown) {
-        return markdown
-            // Convert bold
-            .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-            .replace(/__(.*?)__/g, '<strong>$1</strong>')
-            // Convert italic
-            .replace(/\*([^*]+)\*/g, '<em>$1</em>')
-            .replace(/_([^_]+)_/g, '<em>$1</em>')
-            // Convert strikethrough
-            .replace(/~~(.*?)~~/g, '<s>$1</s>')
-            // Convert underline (keep as is since it's already HTML)
-            // Convert line breaks
-            .replace(/\n\n/g, '</p><p>')
-            .replace(/\n/g, '<br>')
-            // Wrap in paragraphs
-            .replace(/^/, '<p>')
-            .replace(/$/, '</p>')
-            // Clean up empty paragraphs
-            .replace(/<p><\/p>/g, '<p>&nbsp;</p>');
     }
     async handleCopy() {
         try {

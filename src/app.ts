@@ -1,18 +1,67 @@
 import {
-    convertToPptxRichText,
     formatPptxTextPropsForDisplay,
     getSampleRichText,
-    convertHtmlToMarkdown,
+    convertHtmlToPptxRichText,
     PptxGenJSTextProps
 } from './converter.js';
 import type * as PrismJS from 'prismjs';
 
+// CKEditor 5 Types
+interface CKEditor5Config {
+    toolbar?: {
+        items?: string[];
+    };
+    heading?: {
+        options?: Array<{
+            model: string;
+            view?: string;
+            title: string;
+            class: string;
+        }>;
+    };
+    fontSize?: {
+        options?: number[];
+    };
+    fontFamily?: {
+        options?: string[];
+    };
+    fontColor?: {
+        colors?: Array<{
+            color: string;
+            label: string;
+            hasBorder?: boolean;
+        }>;
+    };
+    alignment?: {
+        options?: string[];
+    };
+}
+
+interface CKEditor5Instance {
+    getData(): string;
+    setData(data: string): void;
+    model: {
+        document: {
+            on(event: string, callback: () => void): void;
+        };
+    };
+    editing: {
+        view: {
+            focus(): void;
+        };
+    };
+}
+
+interface CKEditor5Constructor {
+    create(element: Element | null, config?: CKEditor5Config): Promise<CKEditor5Instance>;
+}
+
 // Declare global variables for TypeScript  
-declare const ClassicEditor: any;
+declare const ClassicEditor: CKEditor5Constructor;
 declare const Prism: typeof PrismJS;
 
 class RichTextConverterApp {
-    private editor: any;
+    private editor: CKEditor5Instance | null = null;
     private outputElement!: HTMLElement;
     private outputCodeElement!: HTMLElement;
     private convertButton!: HTMLButtonElement;
@@ -177,9 +226,11 @@ class RichTextConverterApp {
         this.copyButton.addEventListener('click', () => this.handleCopy());
 
         // Auto-convert on content change
-        this.editor.model.document.on('change:data', () => {
-            this.handleConvert();
-        });
+        if (this.editor) {
+            this.editor.model.document.on('change:data', () => {
+                this.handleConvert();
+            });
+        }
 
         // Handle keyboard shortcuts
         document.addEventListener('keydown', (e) => {
@@ -248,10 +299,8 @@ class RichTextConverterApp {
                 return;
             }
 
-            // Convert HTML to markdown first, then to PptxGenJS format
-            // TODO: Enhanced conversion will be completed in next update
-            const markdownContent = convertHtmlToMarkdown(htmlContent);
-            const result = convertToPptxRichText(markdownContent);
+            // Convert HTML directly to PptxGenJS format (optimized for CKEditor)
+            const result = convertHtmlToPptxRichText(htmlContent);
 
             const formattedOutput = formatPptxTextPropsForDisplay(result);
             this.setOutputContent(formattedOutput);
@@ -303,34 +352,12 @@ class RichTextConverterApp {
     private handleLoadSample(): void {
         if (!this.editor) return;
 
-        // Convert sample markdown to HTML for CKEditor
-        const sampleText = getSampleRichText();
-        const sampleHtml = this.convertMarkdownToHtml(sampleText);
+        // Load sample HTML directly into CKEditor
+        const sampleHtml = getSampleRichText();
         this.editor.setData(sampleHtml);
         this.handleConvert();
         this.editor.editing.view.focus();
-    }
-
-    private convertMarkdownToHtml(markdown: string): string {
-        return markdown
-            // Convert bold
-            .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-            .replace(/__(.*?)__/g, '<strong>$1</strong>')
-            // Convert italic
-            .replace(/\*([^*]+)\*/g, '<em>$1</em>')
-            .replace(/_([^_]+)_/g, '<em>$1</em>')
-            // Convert strikethrough
-            .replace(/~~(.*?)~~/g, '<s>$1</s>')
-            // Convert underline (keep as is since it's already HTML)
-            // Convert line breaks
-            .replace(/\n\n/g, '</p><p>')
-            .replace(/\n/g, '<br>')
-            // Wrap in paragraphs
-            .replace(/^/, '<p>')
-            .replace(/$/, '</p>')
-            // Clean up empty paragraphs
-            .replace(/<p><\/p>/g, '<p>&nbsp;</p>');
-    }
+        }
 
     private async handleCopy(): Promise<void> {
         try {

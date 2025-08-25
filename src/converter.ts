@@ -2,295 +2,242 @@ import type * as PptxGenJS from 'pptxgenjs';
 // Types for PptxGenJS TextProps
 export type PptxGenJSTextProps = PptxGenJS.default.TextProps
 
-
-// Token interface for parsing
-interface Token {
-    type: 'text' | 'bold' | 'italic' | 'underline' | 'strike' | 'break';
-    content: string;
-    start: number;
-    end: number;
-}
+// Removed markdown support - now only supports rich text (HTML from CKEditor)
 
 /**
- * Convert HTML from Word documents to markdown-like format
- */
-export function convertHtmlToMarkdown(html: string): string {
-    // Create a temporary div to parse HTML
-    const tempDiv = document.createElement('div');
-    tempDiv.innerHTML = html;
-
-    // Convert HTML to markdown
-    const result = processNode(tempDiv);
-
-    // Clean up extra whitespace and normalize line breaks
-    return result
-        .replace(/\n\s*\n\s*\n/g, '\n\n') // Remove excessive line breaks
-        .replace(/^\s+|\s+$/g, '') // Trim whitespace
-        .replace(/\s+/g, ' '); // Normalize whitespace
-}
-
-/**
- * Recursively process HTML nodes and convert to markdown
- */
-function processNode(node: Node): string {
-    let result = '';
-
-    for (const child of Array.from(node.childNodes)) {
-        if (child.nodeType === Node.TEXT_NODE) {
-            // Text node - add as is
-            const text = child.textContent || '';
-            result += text;
-        } else if (child.nodeType === Node.ELEMENT_NODE) {
-            const element = child as Element;
-            const childContent = processNode(child);
-
-            if (!childContent.trim()) continue; // Skip empty elements
-
-            switch (element.tagName.toLowerCase()) {
-                case 'strong':
-                case 'b':
-                    result += `**${childContent}**`;
-                    break;
-                case 'em':
-                case 'i':
-                    result += `*${childContent}*`;
-                    break;
-                case 'u':
-                    result += `<u>${childContent}</u>`;
-                    break;
-                case 's':
-                case 'strike':
-                case 'del':
-                    result += `~~${childContent}~~`;
-                    break;
-                case 'span':
-                    // Handle styled spans (common in Word)
-                    const style = element.getAttribute('style') || '';
-                    if (style.includes('font-weight: bold') || style.includes('font-weight:bold')) {
-                        result += `**${childContent}**`;
-                    } else if (style.includes('font-style: italic') || style.includes('font-style:italic')) {
-                        result += `*${childContent}*`;
-                    } else if (style.includes('text-decoration: underline') || style.includes('text-decoration:underline')) {
-                        result += `<u>${childContent}</u>`;
-                    } else if (style.includes('text-decoration: line-through') || style.includes('text-decoration:line-through')) {
-                        result += `~~${childContent}~~`;
-                    } else {
-                        result += childContent;
-                    }
-                    break;
-                case 'p':
-                case 'div':
-                    result += childContent + '\n\n';
-                    break;
-                case 'br':
-                    result += '\n';
-                    break;
-                case 'h1':
-                case 'h2':
-                case 'h3':
-                case 'h4':
-                case 'h5':
-                case 'h6':
-                    result += `**${childContent}**\n\n`;
-                    break;
-                default:
-                    // For unknown elements, just include the content
-                    result += childContent;
-                    break;
-            }
-        }
-    }
-
-    return result;
-}
-
-/**
- * Convert rich text (Markdown, HTML, etc.) to PptxGenJS-compatible format
- * @param input - Rich text string (supports Markdown and basic HTML)
- * @returns Array of PptxGenJS TextProps
- */
-export function convertToPptxRichText(input: string): PptxGenJSTextProps[] {
-    if (!input) return [];
-
-    // First, handle line breaks
-    const lines = input.split(/\r?\n/);
-    const result: PptxGenJSTextProps[] = [];
-
-    for (let i = 0; i < lines.length; i++) {
-        const line = lines[i];
-
-        if (line.trim() === '') {
-            // Empty line - add break
-            result.push({text: "", options: {breakLine: true}});
-            continue;
-        }
-
-        // Parse the line for formatting
-        const lineTokens = parseLine(line);
-        result.push(...lineTokens);
-
-        // Add line break if not the last line
-        if (i < lines.length - 1) {
-            result.push({text: "", options: {breakLine: true}});
-        }
-    }
-
-    return result;
-}
-
-/**
- * Parse a single line for rich text formatting
- */
-function parseLine(line: string): PptxGenJSTextProps[] {
-    const tokens: Token[] = [];
-    let pos = 0;
-
-    // Regular expressions for different formatting
-    const patterns = [
-        // Bold: **text** or __text__
-        {type: 'bold' as const, regex: /(\*\*|__)(.+?)\1/g},
-        // Italic: *text* or _text_ (but not when part of bold)
-        {type: 'italic' as const, regex: /(?<!\*)\*(?!\*)(.+?)(?<!\*)\*(?!\*)|(?<!_)_(?!_)(.+?)(?<!_)_(?!_)/g},
-        // Strikethrough: ~~text~~
-        {type: 'strike' as const, regex: /~~(.+?)~~/g},
-        // Underline: <u>text</u>
-        {type: 'underline' as const, regex: /<u>(.+?)<\/u>/gi},
-    ];
-
-    // Find all formatting tokens
-    const allMatches: Array<{ type: Token['type'], match: RegExpMatchArray }> = [];
-
-    for (const pattern of patterns) {
-        let match;
-        pattern.regex.lastIndex = 0; // Reset regex
-        while ((match = pattern.regex.exec(line)) !== null) {
-            allMatches.push({type: pattern.type, match});
-        }
-    }
-
-    // Sort matches by position
-    allMatches.sort((a, b) => a.match.index! - b.match.index!);
-
-    // Process matches and create tokens
-    const processedRanges: Array<{ start: number, end: number }> = [];
-
-    for (const {type, match} of allMatches) {
-        const start = match.index!;
-        const end = start + match[0].length;
-
-        // Check if this range overlaps with already processed ranges
-        const overlaps = processedRanges.some(range =>
-            (start >= range.start && start < range.end) ||
-            (end > range.start && end <= range.end) ||
-            (start <= range.start && end >= range.end)
-        );
-
-        if (!overlaps) {
-            // Extract content based on the pattern type
-            let content = '';
-            switch (type) {
-                case 'bold':
-                    content = match[2] || ''; // For (**|__)(.+?)\1, content is in group 2
-                    break;
-                case 'italic':
-                    content = match[1] || match[2] || ''; // For both italic patterns
-                    break;
-                case 'strike':
-                    content = match[1] || ''; // For ~~(.+?)~~, content is in group 1
-                    break;
-                case 'underline':
-                    content = match[1] || ''; // For <u>(.+?)</u>, content is in group 1
-                    break;
-            }
-
-            if (content) {
-                tokens.push({
-                    type,
-                    content,
-                    start,
-                    end
-                });
-                processedRanges.push({start, end});
-            }
-        }
-    }
-
-    // Sort tokens by position
-    tokens.sort((a, b) => a.start - b.start);
-
-    // Convert tokens to PptxGenJS format
-    const result: PptxGenJSTextProps[] = [];
-    let lastEnd = 0;
-
-    for (const token of tokens) {
-        // Add any plain text before this token
-        if (token.start > lastEnd) {
-            const plainText = line.substring(lastEnd, token.start);
-            if (plainText) {
-                result.push({text: plainText});
-            }
-        }
-
-        // Add the formatted token
-        const options: PptxGenJSTextProps['options'] = {};
-
-        switch (token.type) {
-            case 'bold':
-                options.bold = true;
-                break;
-            case 'italic':
-                options.italic = true;
-                break;
-            case 'underline':
-                options.underline = {style: 'heavy'};
-                break;
-            case 'strike':
-                options.strike = true;
-                break;
-        }
-
-        result.push({
-            text: token.content,
-            options: Object.keys(options).length > 0 ? options : undefined
-        });
-
-        lastEnd = token.end;
-    }
-
-    // Add any remaining plain text
-    if (lastEnd < line.length) {
-        const remainingText = line.substring(lastEnd);
-        if (remainingText) {
-            result.push({text: remainingText});
-        }
-    }
-
-    // If no tokens were found, return the whole line as plain text
-    if (result.length === 0 && line) {
-        result.push({text: line});
-    }
-
-    return result;
-}
-
-/**
- * Convert PptxGenJS TextProps array back to a readable format for display
+ * Convert PptxGenJS TextProps array to a readable JSON format for display
  */
 export function formatPptxTextPropsForDisplay(props: PptxGenJSTextProps[]): string {
     return JSON.stringify(props, null, 2);
 }
 
 /**
- * Create a sample rich text for testing
+ * Create a sample rich text for testing (HTML format for CKEditor)
  */
 export function getSampleRichText(): string {
-    return `This is **bold text**, and this is *italic text*.
+    return `<p>This is a sample text that demonstrates rich text formatting.</p>
 
-Here's some ~~strikethrough~~ text and <u>underlined</u> text.
+<p>You can use <strong>bold text</strong>, <em>italic text</em>, <u>underlined text</u>, and <s>strikethrough text</s>.</p>
 
-You can combine **bold and *italic* together**.
+<p>Bullet lists work great with CKEditor:</p>
+<ul>
+    <li>First bullet point</li>
+    <li>Second bullet point with <strong>formatting</strong>
+        <ul>
+            <li>Nested bullet (indented)</li>
+            <li>Another nested item with <em>italic text</em>
+                <ul>
+                    <li>Deeply nested bullet</li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+    <li>Back to main level</li>
+</ul>
 
-Multiple lines
-with breaks
-work too!`;
+<p>Numbered lists:</p>
+<ol>
+    <li>First numbered item</li>
+    <li>Second numbered item with <strong>formatting</strong>
+        <ol>
+            <li>Nested numbered item</li>
+            <li>Another nested item with <u>underline</u></li>
+        </ol>
+    </li>
+    <li>Back to main numbering</li>
+</ol>
+
+<p>Regular paragraphs work with proper spacing and formatting.</p>`;
+} 
+
+/**
+ * Convert HTML directly to PptxGenJS-compatible format (optimized for CKEditor)
+ * @param html - HTML string from CKEditor
+ * @returns Array of PptxGenJS TextProps
+ */
+export function convertHtmlToPptxRichText(html: string): PptxGenJSTextProps[] {
+    if (!html) return [];
+
+    // Create a temporary div to parse HTML
+    const tempDiv = document.createElement('div');
+    tempDiv.innerHTML = html;
+
+    const result: PptxGenJSTextProps[] = [];
+    processHtmlNode(tempDiv, result, 0);
+
+    return result;
+}
+
+/**
+ * Process HTML nodes and convert directly to PptxGenJS format
+ */
+function processHtmlNode(
+    node: Node, 
+    result: PptxGenJSTextProps[], 
+    indentLevel: number = 0,
+    inheritedOptions: Partial<PptxGenJSTextProps['options']> = {}
+): void {
+    for (const child of Array.from(node.childNodes)) {
+        if (child.nodeType === Node.TEXT_NODE) {
+            const text = child.textContent || '';
+            if (text.trim()) {
+                const options = { ...inheritedOptions };
+                if (indentLevel > 0 && !options.bullet) {
+                    options.indentLevel = indentLevel;
+                }
+                
+                result.push({
+                    text: text,
+                    options: Object.keys(options).length > 0 ? options : undefined
+                });
+            }
+        } else if (child.nodeType === Node.ELEMENT_NODE) {
+            const element = child as Element;
+            const tagName = element.tagName.toLowerCase();
+            
+            // Create new options based on current element
+            const newOptions = { ...inheritedOptions };
+            let addLineBreak = false;
+            let isList = false;
+            
+            switch (tagName) {
+                case 'strong':
+                case 'b':
+                    newOptions.bold = true;
+                    break;
+                    
+                case 'em':
+                case 'i':
+                    newOptions.italic = true;
+                    break;
+                    
+                case 'u':
+                    newOptions.underline = { style: 'heavy' };
+                    break;
+                    
+                case 's':
+                case 'strike':
+                case 'del':
+                    newOptions.strike = true;
+                    break;
+                    
+                case 'span':
+                    // Handle CKEditor styled spans
+                    const style = element.getAttribute('style') || '';
+                    if (style.includes('font-weight: bold') || style.includes('font-weight:bold')) {
+                        newOptions.bold = true;
+                    }
+                    if (style.includes('font-style: italic') || style.includes('font-style:italic')) {
+                        newOptions.italic = true;
+                    }
+                    if (style.includes('text-decoration: underline') || style.includes('text-decoration:underline')) {
+                        newOptions.underline = { style: 'heavy' };
+                    }
+                    if (style.includes('text-decoration: line-through') || style.includes('text-decoration:line-through')) {
+                        newOptions.strike = true;
+                    }
+                    break;
+                    
+                case 'p':
+                    // Paragraph - add content and line break
+                    processHtmlNode(child, result, indentLevel, newOptions);
+                    if (result.length > 0) {
+                        result.push({ text: "", options: { breakLine: true } });
+                    }
+                    continue;
+                    
+                case 'br':
+                    result.push({ text: "", options: { breakLine: true } });
+                    continue;
+                    
+                case 'ul':
+                    // Unordered list
+                    processListElement(element, result, indentLevel, false);
+                    continue;
+                    
+                case 'ol':
+                    // Ordered list
+                    processListElement(element, result, indentLevel, true);
+                    continue;
+                    
+                case 'li':
+                    // List item - this should be handled by processListElement
+                    // But if encountered directly, treat as indented content
+                    newOptions.indentLevel = indentLevel;
+                    break;
+                    
+                case 'h1':
+                case 'h2':
+                case 'h3':
+                case 'h4':
+                case 'h5':
+                case 'h6':
+                    newOptions.bold = true;
+                    // Add paragraph spacing after headings
+                    newOptions.paraSpaceAfter = 12;
+                    break;
+            }
+            
+            // Process child nodes with inherited options
+            if (!isList) {
+                processHtmlNode(child, result, indentLevel, newOptions);
+            }
+        }
+    }
+}
+
+/**
+ * Process HTML list elements (ul/ol) and their list items
+ */
+function processListElement(
+    listElement: Element, 
+    result: PptxGenJSTextProps[], 
+    indentLevel: number, 
+    isNumbered: boolean
+): void {
+    let itemNumber = 1;
+    
+    for (const child of Array.from(listElement.children)) {
+        if (child.tagName.toLowerCase() === 'li') {
+            // Create bullet options
+            const bulletOptions: PptxGenJSTextProps['options'] = {
+                bullet: {
+                    type: isNumbered ? 'number' : 'bullet'
+                },
+                indentLevel: indentLevel,
+                paraSpaceAfter: 6
+            };
+            
+            if (isNumbered && itemNumber > 1) {
+                // For numbered lists, we don't need to set numberStartAt for each item
+                // PptxGenJS handles the numbering automatically
+            }
+            
+            // Process the list item content
+            const itemResult: PptxGenJSTextProps[] = [];
+            processHtmlNode(child, itemResult, indentLevel + 1, {});
+            
+            // Apply bullet options to the first text element of each list item
+            if (itemResult.length > 0) {
+                if (!itemResult[0].options) {
+                    itemResult[0].options = {};
+                }
+                Object.assign(itemResult[0].options, bulletOptions);
+                
+                // Add all processed item content to result
+                result.push(...itemResult);
+                
+                // Add line break after each list item except the last one
+                const isLastItem = child === listElement.children[listElement.children.length - 1];
+                if (!isLastItem) {
+                    result.push({ text: "", options: { breakLine: true } });
+                }
+            }
+            
+            itemNumber++;
+        }
+    }
+    
+    // Add extra line break after the entire list
+    result.push({ text: "", options: { breakLine: true } });
 } 
