@@ -49,7 +49,7 @@ class RichTextConverterApp {
                         ['bold', 'italic', 'underline', 'strike'],
                         [{ 'list': 'ordered'}, { 'list': 'bullet' }],
                         [{ 'align': [] }],
-                        [{ 'script': 'sub'}, { 'script': 'super' }],
+                        //[{ 'script': 'sub'}, { 'script': 'super' }],
                         ['link'],
                         ['clean']
                     ]
