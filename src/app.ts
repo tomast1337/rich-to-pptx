@@ -212,17 +212,19 @@ class RichTextConverterApp {
             const pptx = new PptxGenJS();
             const slide = pptx.addSlide();
             
-            // Add the text to the slide
+            // Add the text to the slide with better defaults for multi-language support
             slide.addText(textProps, {
-                x: 0.1,
-                y: 0.1,
-                w: 9.8,
-                h: 5.4,
-                fontSize: 8,
+                x: 0.5,  // Increased margin for better readability
+                y: 0.5,
+                w: 9.0,  // Adjusted width to account for margins
+                h: 5.0,  // Adjusted height to account for margins
+                fontSize: 12, // Default font size
                 color: '000000',
                 align: 'left',
                 valign: 'top',
-                fontFace: 'Arial',
+                fontFace: 'Arial Unicode MS', // Font that supports multi-language text
+                fit: 'shrink', // Automatically adjust text to fit
+                breakLine: true // Enable text wrapping
             });
             
             // Generate the PPTX as a blob
