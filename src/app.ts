@@ -1,13 +1,11 @@
 import type * as PrismJS from 'prismjs';
 import Toastify from "toastify-js";
 import Quill from 'quill';
-import {
-    convertHtmlToPptxRichText,
-    formatPptxTextPropsForDisplay,
-    getSampleRichText
-} from './converter.js';
-import { objectToString } from './objectToString.js';
-import * as prettier from "prettier";
+import {convertHtmlToPptxRichText, getSampleRichText} from './converter.js';
+import {objectToString} from './objectToString.js';
+import * as prettier from "prettier/standalone";
+import parserBabel from "prettier/plugins/babel";
+import prettierPluginEstree from "prettier/plugins/estree";
 
 // Declare global variables for TypeScript  
 declare const Prism: typeof PrismJS;
@@ -113,14 +111,15 @@ class RichTextConverterApp {
             // Convert HTML directly to PptxGenJS format (optimized for QuillJS)
             const result = convertHtmlToPptxRichText(htmlContent);
 
-            prettier.format(objectToString(result),{
-                parser: 'typescript',
+            prettier.format(objectToString(result), {
+                parser: 'babel',
+                plugins: [parserBabel, prettierPluginEstree],
                 bracketSameLine: true,
                 printWidth: 120,
                 tabWidth: 2,
                 useTabs: false,
                 singleQuote: false,
-                trailingComma: 'all',
+                trailingComma: 'none',
                 arrowParens: 'always',
                 endOfLine: 'lf',
                 semi: true,
@@ -130,7 +129,7 @@ class RichTextConverterApp {
                 this.setOutputContent(formattedOutput);
             }).catch((error) => {
                 console.error('Failed to format output:', error);
-                this.setOutputContent(objectToString(result,4));
+                this.setOutputContent(objectToString(result, 4));
             });
 
             // Update button states
