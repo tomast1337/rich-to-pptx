@@ -6,6 +6,8 @@ import {
     formatPptxTextPropsForDisplay,
     getSampleRichText
 } from './converter.js';
+import { objectToString } from './objectToString.js';
+import * as prettier from "prettier";
 
 // Declare global variables for TypeScript  
 declare const Prism: typeof PrismJS;
@@ -102,7 +104,6 @@ class RichTextConverterApp {
 
             // Get HTML content from QuillJS 2.0
             const htmlContent = this.editor.root.innerHTML;
-            console.log(htmlContent);
 
             if (!htmlContent.trim() || htmlContent === '<p><br></p>') {
                 this.setOutputContent('[]');
@@ -112,8 +113,25 @@ class RichTextConverterApp {
             // Convert HTML directly to PptxGenJS format (optimized for QuillJS)
             const result = convertHtmlToPptxRichText(htmlContent);
 
-            const formattedOutput = formatPptxTextPropsForDisplay(result);
-            this.setOutputContent(formattedOutput);
+            prettier.format(objectToString(result),{
+                parser: 'typescript',
+                bracketSameLine: true,
+                printWidth: 120,
+                tabWidth: 2,
+                useTabs: false,
+                singleQuote: false,
+                trailingComma: 'all',
+                arrowParens: 'always',
+                endOfLine: 'lf',
+                semi: true,
+                bracketSpacing: true,
+                quoteProps: 'consistent',
+            }).then((formattedOutput) => {
+                this.setOutputContent(formattedOutput);
+            }).catch((error) => {
+                console.error('Failed to format output:', error);
+                this.setOutputContent(objectToString(result,4));
+            });
 
             // Update button states
             this.copyButton.disabled = false;

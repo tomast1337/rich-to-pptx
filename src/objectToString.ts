@@ -27,7 +27,7 @@ function escapeString(str: string): string {
     });
 }
 
-export function objectToString(obj: any, indent: number = 0): string {
+export const objectToString = (obj: any, indent: number = 0): string => {
     const pad = "  ".repeat(indent);
 
     if (obj === null) return "null";
