@@ -1,3 +1,22 @@
+:root {
+    --background-primary: #2e3440;
+    --background-secondary: #3b4252;
+    --background-tertiary: #434c5e;
+    --background-quaternary: #4c566a;
+    --text-primary: #d8dee9;
+    --text-secondary: #e5e9f0;
+    --text-tertiary: #eceff4;
+    --text-highlight: #8fbcbb;
+    --text-link: #88c0d0;
+    --text-comment: #81a1c1;
+    --text-keyword: #5e81ac;
+    --text-error: #bf616a;
+    --text-warning: #d08770;
+    --text-info: #ebcb8b;
+    --text-success: #a3be8c;
+    --text-variable: #b48ead;
+  }
+
 /* Reset and base styles */
 * {
     margin: 0;
@@ -6,12 +25,12 @@
 }
 
 body {
-    border-top: 3px solid #5e81ac; /* Frost */
+    border-top: 3px solid var(--text-keyword); 
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, sans-serif;
     line-height: 1.6;
-    color: #d8dee9; /* Snow Storm */
-    background: #2e3440; /* Polar Night */
+    color: var(--text-primary); 
+    background: var(--background-primary); 
     min-height: 100vh;
 }
 
@@ -29,36 +48,36 @@ body {
 .header {
     text-align: center;
     margin-bottom: 30px;
-    color: #eceff4; /* lightest text */
-    background: #3b4252; /* dark block */
+    color: var(--text-tertiary);
+    background: var(--background-secondary);
     padding: 30px 20px;
-    border: 2px solid #4c566a; /* Polar Night */
-    border-top: 3px solid #5e81ac; /* Frost */
+    border: 2px solid var(--background-quaternary); 
+    border-top: 3px solid var(--text-keyword); 
 }
 
 .header h1 {
     font-size: 1.5rem;
     font-weight: 700;
     margin-bottom: 10px;
-    color: #eceff4;
+    color: var(--text-tertiary);
 }
 
 .subtitle {
     font-size: 0.9rem;
     opacity: 0.7;
     font-weight: 400;
-    color: #81a1c1; /* Frost accent */
+    color: var(--text-comment);
 }
 
 /* Main content */
 .main {
     flex: 1;
-    background: #3b4252;
-    border: 2px solid #4c566a; /* Polar Night */
-    border-top: 3px solid #5e81ac; /* Frost */
+    background: var(--background-secondary);
+    border: 2px solid var(--background-quaternary); 
+    border-top: 3px solid var(--text-keyword); 
     padding: 40px;
     margin-bottom: 20px;
-    color: #d8dee9;
+    color: var(--text-primary);
 }
 
 /* Converter grid */
@@ -81,7 +100,7 @@ body {
   display: flex;
   flex-direction: column;
   max-width: 100%;
-  min-width: 0; /* Allow sections to shrink below content width */
+  min-width: 0;
 }
 
 .section-header {
@@ -90,17 +109,17 @@ body {
 
 .section-header h2 {
     font-size: 1.2rem;
-    color: #eceff4; /* Snow Storm */
+    color: var(--text-tertiary); 
     margin-bottom: 8px;
 }
 
 .help-text {
-    color: #81a1c1;
+    color: var(--text-comment);
 }
 
 .help-text code {
-    background: #4c566a; /* Polar Night */
-    color: #eceff4; /* Snow Storm */
+    background: var(--background-quaternary); 
+    color: var(--text-tertiary); 
     padding: 2px 4px;
     border-radius: 3px;
     font-family: "SF Mono", Monaco, Consolas, monospace;
@@ -109,9 +128,9 @@ body {
 
 /* QuillJS and Textarea styling */
 #editor-container {
-  border: 2px solid #4c566a; /* Polar Night */
+  border: 2px solid var(--background-quaternary); 
   overflow: hidden;
-  background: #2e3440; /* Polar Night */
+  background: var(--background-primary); 
   min-height: 300px;
   max-width: 100%;
   display: flex;
@@ -119,7 +138,7 @@ body {
 }
 
 #editor-container:focus-within {
-    border-color: #5e81ac; /* Frost */
+    border-color: var(--text-keyword); 
 }
 
 /* QuillJS specific styling */
@@ -133,12 +152,12 @@ body {
   word-wrap: break-word;
   overflow-wrap: break-word;
   white-space: normal;
-  color: #d8dee9 !important; /* Snow Storm */
-  background: #2e3440 !important; /* Polar Night */
+  color: var(--text-primary) !important; 
+  background: var(--background-primary) !important; 
 }
 
 .ql-editor p {
-    color: #d8dee9 !important; /* Snow Storm */
+    color: var(--text-primary) !important; 
 }
 
 .ql-editor h1,
@@ -147,24 +166,24 @@ body {
 .ql-editor h4,
 .ql-editor h5,
 .ql-editor h6 {
-    color: #eceff4 !important; /* Snow Storm */
+    color: var(--text-tertiary) !important; 
 }
 
 .ql-editor strong,
 .ql-editor b {
-    color: #eceff4 !important; /* Snow Storm */
+    color: var(--text-tertiary) !important; 
 }
 
 .ql-editor em,
 .ql-editor i {
-    color: #e5e9f0 !important; /* Snow Storm */
+    color: var(--text-secondary) !important; 
 }
 
 /* QuillJS Toolbar styling */
 .ql-toolbar.ql-snow {
     border: none !important;
-    border-bottom: 2px solid #4c566a !important; /* Polar Night */
-    background: #3b4252 !important; /* Polar Night */
+    border-bottom: 2px solid var(--background-quaternary) !important; 
+    background: var(--background-secondary) !important; 
     padding: 8px !important;
 }
 
@@ -173,7 +192,7 @@ body {
 }
 
 .ql-toolbar.ql-snow button {
-    color: #d8dee9 !important; /* Snow Storm */
+    color: var(--text-primary) !important; 
     background: transparent !important;
     border: none !important;
     padding: 4px 6px !important;
@@ -182,74 +201,74 @@ body {
 }
 
 .ql-toolbar.ql-snow button:hover {
-    background: #4c566a !important; /* Polar Night */
-    color: #eceff4 !important; /* Snow Storm */
+    background: var(--background-quaternary) !important; 
+    color: var(--text-tertiary) !important; 
 }
 
 .ql-toolbar.ql-snow button.ql-active {
-    background: #5e81ac !important; /* Frost */
-    color: #eceff4 !important; /* Snow Storm */
+    background: var(--text-keyword) !important; 
+    color: var(--text-tertiary) !important; 
 }
 
 .ql-toolbar.ql-snow .ql-picker {
-    color: #d8dee9 !important; /* Snow Storm */
+    color: var(--text-primary) !important; 
 }
 
 .ql-toolbar.ql-snow .ql-picker-label {
-    color: #d8dee9 !important; /* Snow Storm */
+    color: var(--text-primary) !important; 
     border: none !important;
     background: transparent !important;
 }
 
 .ql-toolbar.ql-snow .ql-picker-label:hover {
-    background: #4c566a !important; /* Polar Night */
-    color: #eceff4 !important; /* Snow Storm */
+    background: var(--background-quaternary) !important; 
+    color: var(--text-tertiary) !important; 
 }
 
 .ql-toolbar.ql-snow .ql-picker-options {
-    background: #3b4252 !important; /* Polar Night */
-    border: 2px solid #4c566a !important; /* Polar Night */
+    background: var(--background-secondary) !important; 
+    border: 2px solid var(--background-quaternary) !important; 
     border-radius: 6px !important;
     box-shadow: 0 4px 12px rgba(0,0,0,0.3) !important;
 }
 
 .ql-toolbar.ql-snow .ql-picker-item {
-    color: #d8dee9 !important; /* Snow Storm */
+    color: var(--text-primary) !important; 
 }
 
 .ql-toolbar.ql-snow .ql-picker-item:hover {
-    background: #4c566a !important; /* Polar Night */
-    color: #eceff4 !important; /* Snow Storm */
+    background: var(--background-quaternary) !important; 
+    color: var(--text-tertiary) !important; 
 }
 
 .ql-toolbar.ql-snow .ql-stroke {
-    stroke: #d8dee9 !important; /* Snow Storm */
+    stroke: var(--text-primary) !important; 
 }
 
 .ql-toolbar.ql-snow .ql-fill {
-    fill: #d8dee9 !important; /* Snow Storm */
+    fill: var(--text-primary) !important; 
 }
 
 .ql-toolbar.ql-snow .ql-picker-label svg {
-    stroke: #d8dee9 !important; /* Snow Storm */
+    stroke: var(--text-primary) !important; 
 }
 
 /* QuillJS Container styling */
 .ql-container.ql-snow {
     border: none !important;
-    background: #2e3440 !important; /* Polar Night */
+    background: var(--background-primary) !important; 
     min-height: 250px !important;
 }
 
 /* QuillJS Editor focus state */
 .ql-editor.ql-blank::before {
-    color: #81a1c1 !important; /* Frost */
+    color: var(--text-comment) !important; 
     font-style: italic !important;
 }
 
 /* QuillJS link styling */
 .ql-editor a {
-    color: #88c0d0 !important; /* Frost */
+    color: var(--text-link) !important; 
 }
 
 /* Scrollbar for QuillJS editor */
@@ -258,27 +277,27 @@ body {
 }
 
 .ql-editor::-webkit-scrollbar-track {
-    background: #3b4252; /* Polar Night */
+    background: var(--background-secondary); 
 }
 
 .ql-editor::-webkit-scrollbar-thumb {
-    background: #4c566a; /* Polar Night */
+    background: var(--background-quaternary); 
 }
 
 .ql-editor::-webkit-scrollbar-thumb:hover {
-    background: #5e81ac; /* Frost */
+    background: var(--text-keyword); 
 }
 
 /* Output container styling */
 .output-container {
-  border: 2px solid #4c566a;
-  background: #3b4252;
+  border: 2px solid var(--background-quaternary);
+  background: var(--background-secondary);
   max-width: 100%;
   overflow-x: auto;
 }
 
 .output-container:hover {
-    border-color: #5e81ac; /* Frost */
+    border-color: var(--text-keyword); 
 }
 
 #output-text {
@@ -295,7 +314,7 @@ body {
   line-height: 1.5 !important;
   white-space: pre;
   word-wrap: normal;
-  color: #eceff4;
+  color: var(--text-tertiary);
   max-width: 100%;
 }
 
@@ -316,27 +335,27 @@ body {
 
 /* Prism.js theme overrides for better integration */
 .token.property {
-    color: #81a1c1 !important;
+    color: var(--text-comment) !important;
 }
 
 .token.string {
-    color: #a3be8c !important;
+    color: var(--text-success) !important;
 }
 
 .token.number {
-    color: #b48ead !important;
+    color: var(--text-variable) !important;
 }
 
 .token.boolean {
-    color: #bf616a !important;
+    color: var(--text-error) !important;
 }
 
 .token.null {
-    color: #ebcb8b !important;
+    color: var(--text-info) !important;
 }
 
 .token.punctuation {
-    color: #88c0d0 !important;
+    color: var(--text-link) !important;
 }
 
 /* Custom scrollbar for output */
@@ -346,17 +365,17 @@ body {
 }
 
 #output-text::-webkit-scrollbar-track {
-    background: #3b4252; /* Polar Night */
+    background: var(--background-secondary); 
     border-radius: 4px;
 }
 
 #output-text::-webkit-scrollbar-thumb {
-    background: #4c566a; /* Polar Night */
+    background: var(--background-quaternary); 
     border-radius: 4px;
 }
 
 #output-text::-webkit-scrollbar-thumb:hover {
-    background: #5e81ac; /* Frost */
+    background: var(--text-keyword); 
 }
 
 /* Loading state */
@@ -364,41 +383,41 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #4c566a; /* Polar Night */
+    color: var(--background-quaternary); 
     font-style: italic;
     min-height: 268px;
 }
 
 /* Empty state styling */
 .output-empty {
-    color: #4c566a; /* Polar Night */
+    color: var(--background-quaternary); 
     font-style: italic;
 }
 
 /* Additional textarea styling for any remaining textareas */
 textarea {
     padding: 16px;
-    border: 2px solid #4c566a; /* Polar Night */
+    border: 2px solid var(--background-quaternary); 
     border-radius: 8px;
     font-family: "SF Mono", Monaco, Consolas, monospace;
     font-size: 14px;
     line-height: 1.5;
     resize: vertical;
     transition: border-color 0.2s ease;
-    background: #3b4252; /* Polar Night */
-    color: #d8dee9; /* Snow Storm */
+    background: var(--background-secondary); 
+    color: var(--text-primary); 
     min-height: 300px;
 }
 
 textarea:focus {
     outline: none;
-    border-color: #5e81ac; /* Frost */
+    border-color: var(--text-keyword); 
     box-shadow: 0 0 0 3px rgba(94, 129, 172, 0.1);
-    background: #2e3440; /* Polar Night */
+    background: var(--background-primary); 
 }
 
 textarea::placeholder {
-    color: #4c566a; /* Polar Night */
+    color: var(--background-quaternary); 
 }
 
 /* Button styling */
@@ -411,9 +430,9 @@ textarea::placeholder {
 
 .btn {
     padding: 12px 24px;
-    border: 2px solid #4c566a; /* Polar Night */
-    background: #3b4252; /* Polar Night */
-    color: #d8dee9; /* Snow Storm */
+    border: 2px solid var(--background-quaternary); 
+    background: var(--background-secondary); 
+    color: #d8dee9; 
     font-size: 14px;
     font-weight: 500;
     cursor: pointer;
@@ -425,25 +444,25 @@ textarea::placeholder {
 }
 
 .btn-primary {
-    background: #5e81ac;
-    border-color: #5e81ac;
-    color: #eceff4;
+    background: var(--text-keyword);
+    border-color: var(--text-keyword);
+    color: var(--text-tertiary);
 }
 
 .btn-primary:hover:not(:disabled) {
-    background: #81a1c1;
+    background: var(--text-comment);
     border-color: #81a1c1;
 }
 
 .btn-secondary {
-    background: #434c5e;
-    color: #eceff4;
-    border-color: #4c566a;
+    background: var(--background-secondary);
+    color: var(--text-tertiary);
+    border-color: var(--background-quaternary);
 }
 
 .btn-secondary:hover:not(:disabled) {
-    background: #4c566a;
-    border-color: #81a1c1;
+    background: var(--background-quaternary);
+    border-color: var(--text-comment);
 }
 
 .btn:disabled {
@@ -453,20 +472,20 @@ textarea::placeholder {
 }
 
 .btn.copied {
-    background: #a3be8c; /* Aurora green */
-    border-color: #a3be8c;
+    background: var(--text-success); /* Aurora green */
+    border-color: var(--text-success);
     transform: scale(0.95);
 }
 
 /* Instructions */
 .instructions {
-    border-top: 1px solid #4c566a; /* Polar Night */
+    border-top: 1px solid var(--background-quaternary); 
     padding-top: 40px;
 }
 
 .instructions h3 {
     font-size: 1.25rem;
-    color: #eceff4; /* Snow Storm */
+    color: var(--text-tertiary); 
     margin-bottom: 24px;
     text-align: center;
 }
@@ -485,7 +504,7 @@ textarea::placeholder {
 }
 
 .instruction-item h4 {
-    color: #d8dee9; /* Snow Storm */
+    color: var(--text-primary); 
     margin-bottom: 16px;
     font-size: 1.1rem;
 }
@@ -497,7 +516,7 @@ textarea::placeholder {
 
 .instruction-item li {
     padding: 8px 0;
-    border-bottom: 1px solid #434c5e; /* Polar Night */
+    border-bottom: 1px solid var(--background-secondary); 
 }
 
 .instruction-item li:last-child {
@@ -505,8 +524,8 @@ textarea::placeholder {
 }
 
 .instruction-item code {
-    background: #4c566a; /* Polar Night */
-    color: #88c0d0; /* Frost */
+    background: var(--background-quaternary); 
+    color: #88c0d0; 
     padding: 2px 6px;
     border-radius: 3px;
     font-family: "SF Mono", Monaco, Consolas, monospace;
@@ -514,7 +533,7 @@ textarea::placeholder {
 }
 
 .instruction-item pre {
-    background: #3b4252; /* Polar Night */
+    background: var(--background-secondary); 
     padding: 16px;
     border-radius: 6px;
     overflow-x: auto;
@@ -524,15 +543,15 @@ textarea::placeholder {
 .instruction-item pre code {
     background: none;
     padding: 0;
-    color: #d8dee9; /* Snow Storm */
+    color: var(--text-primary); 
 }
 
 /* Footer */
 .footer {
-    background: #3b4252; /* Polar Night */
-    border: 2px solid #4c566a; /* Polar Night */
-    border-top: 3px solid #5e81ac; /* Frost */
-    color: #d8dee9; /* Snow Storm */
+    background: var(--background-secondary); 
+    border: 2px solid var(--background-quaternary); 
+    border-top: 3px solid #5e81ac; 
+    color: var(--text-primary); 
     padding: 30px 0;
 }
 
@@ -553,7 +572,7 @@ textarea::placeholder {
     font-size: 1.1rem;
     font-weight: 600;
     margin-bottom: 5px;
-    color: #eceff4; /* Snow Storm */
+    color: var(--text-tertiary); 
 }
 
 .footer-description {
@@ -572,19 +591,19 @@ textarea::placeholder {
     display: flex;
     align-items: center;
     gap: 8px;
-    color: #d8dee9; /* Snow Storm */
+    color: var(--text-primary); 
     text-decoration: none;
     font-size: 0.9rem;
     font-weight: 500;
     padding: 10px 20px;
-    border: 2px solid #4c566a; /* Polar Night */
-    background: #434c5e; /* Polar Night */
+    border: 2px solid var(--background-quaternary); 
+    background: #434c5e; 
 }
 
 .footer-link:hover {
-    background: #4c566a; /* Polar Night */
-    border-color: #5e81ac; /* Frost */
-    color: #eceff4; /* Snow Storm */
+    background: var(--background-quaternary); 
+    border-color: var(--text-keyword); 
+    color: var(--text-tertiary); 
 }
 
 .footer-link svg {
@@ -602,7 +621,7 @@ textarea::placeholder {
 }
 
 .footer-author strong {
-    color: #eceff4; /* Snow Storm */
+    color: var(--text-tertiary); 
     opacity: 1;
 }
 
@@ -671,7 +690,7 @@ textarea::placeholder {
 
 /* Focus improvements for accessibility */
 .btn:focus-visible {
-    outline: 2px solid #88c0d0; /* Frost */
+    outline: 2px solid var(--text-link); 
     outline-offset: 2px;
 }
 
