@@ -2,21 +2,31 @@
 function escapeString(str: string): string {
     return str.replace(/[\\"\b\f\n\r\t\v\u0000-\u001F]/g, (char) => {
         switch (char) {
-            case "\\": return "\\\\";
-            case "\"": return "\\\"";
-            case "'": return "\\'";
-            case "\b": return "\\b";
-            case "\f": return "\\f";
-            case "\n": return "\\n";
-            case "\r": return "\\r";
-            case "\t": return "\\t";
-            case "\v": return "\\v";
+            case "\\":
+                return "\\\\";
+            case "\"":
+                return "\\\"";
+            case "'":
+                return "\\'";
+            case "\b":
+                return "\\b";
+            case "\f":
+                return "\\f";
+            case "\n":
+                return "\\n";
+            case "\r":
+                return "\\r";
+            case "\t":
+                return "\\t";
+            case "\v":
+                return "\\v";
             default:
                 const code = char.charCodeAt(0);
                 return `\\u${code.toString(16).padStart(4, "0")}`;
         }
     });
 }
+
 export function objectToString(obj: any, indent: number = 0): string {
     const pad = "  ".repeat(indent);
 

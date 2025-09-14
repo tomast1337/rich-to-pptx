@@ -30,27 +30,35 @@ Convert rich text to PptxGenJS-compatible format using QuillJS editor.
 ## Development
 
 ### Development with Auto-rebuild
+
 ```bash
 bun run dev
 ```
+
 This watches for file changes, automatically rebuilds, and serves at `http://localhost:8000`
 
 ### Build for Production
+
 ```bash
 bun run build
 ```
+
 Creates optimized production build in the `dist/` directory
 
 ### Watch Build
+
 ```bash
 bun run build:watch
 ```
+
 Automatically rebuilds when source files change
 
 ### Custom Development Server
+
 ```bash
 bun run start
 ```
+
 Runs a custom development server with better source map support
 
 ## Project Structure
@@ -79,12 +87,12 @@ rich-to-pptx/
 
 ## Available Scripts
 
-| Script | Description |
-|--------|-------------|
-| `bun run dev` | Watch mode for builds and start development server |
-| `bun run build` | Build production bundle |
-| `bun run build:watch` | Watch mode for builds |
-| `bun run start` | Start development server |
+| Script                | Description                                        |
+|-----------------------|----------------------------------------------------|
+| `bun run dev`         | Watch mode for builds and start development server |
+| `bun run build`       | Build production bundle                            |
+| `bun run build:watch` | Watch mode for builds                              |
+| `bun run start`       | Start development server                           |
 
 ## License
 
